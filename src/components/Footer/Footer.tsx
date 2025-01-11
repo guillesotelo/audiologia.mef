@@ -26,7 +26,7 @@ export default function Footer({ }: Props) {
             <div className="footer__info">
                 <div className="footer__info-item">
                     <img src="/assets/icons/phone.svg" alt="" className="footer__info-item-img" />
-                    <p className="footer__info-item-data"><a className="anchor" style={{ color: 'gray' }} href="tel:+5493454064331">(+549) 345 4064 331</a></p>
+                    <p className="footer__info-item-data"><a className="anchor" style={{ color: 'gray' }} href="https://wa.me/+5493454064331">(+549) 345 4064 331</a></p>
                 </div>
 
                 <div className="footer__info-item">
