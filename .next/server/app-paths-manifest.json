@@ -1,20 +1,8 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/app/sendContactEmail/route": "app/api/app/sendContactEmail/route.js",
-  "/api/app/sendUnsubscriptionEmail/route": "app/api/app/sendUnsubscriptionEmail/route.js",
-  "/api/app/subscribe/route": "app/api/app/subscribe/route.js",
-  "/api/app/updateSubscription/route": "app/api/app/updateSubscription/route.js",
-  "/api/user/logout/route": "app/api/user/logout/route.js",
-  "/api/user/verify/route": "app/api/user/verify/route.js",
-  "/api/user/login/route": "app/api/user/login/route.js",
-  "/article/[articleSlug]/page": "app/article/[articleSlug]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
   "/policy/page": "app/policy/page.js",
-  "/home/page": "app/home/page.js",
   "/contact/page": "app/contact/page.js",
-  "/api/user/update/route": "app/api/user/update/route.js",
-  "/api/app/getEmails/route": "app/api/app/getEmails/route.js",
-  "/api/user/create/route": "app/api/user/create/route.js",
-  "/page": "app/page.js"
+  "/api/user/verify/route": "app/api/user/verify/route.js",
+  "/login/page": "app/login/page.js"
 }

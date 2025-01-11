@@ -1,7 +1,9 @@
 export type AppContextType = {
     isMobile: boolean
     isLoggedIn: boolean | null
-    setIsLoggedIn: (value: boolean) => void
+    setIsLoggedIn: (value: boolean) => void,
+    page: string,
+    setPage: (value: string) => void
 }
 
 export type onChangeEventType = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>

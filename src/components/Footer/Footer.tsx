@@ -23,6 +23,22 @@ export default function Footer({ }: Props) {
 
     return (
         <div className="footer__container">
+            <div className="footer__info">
+                <div className="footer__info-item">
+                    <img src="/assets/icons/phone.svg" alt="" className="footer__info-item-img" />
+                    <p className="footer__info-item-data"><a className="anchor" style={{ color: 'gray' }} href="tel:+5493454064331">(+549) 345 4064 331</a></p>
+                </div>
+
+                <div className="footer__info-item">
+                    <img src="/assets/icons/location.svg" alt="" className="footer__info-item-img" />
+                    <p className="footer__info-item-data">Aristóbulo del Valle 171</p>
+                </div>
+
+                <div className="footer__info-item">
+                    <img src="/assets/icons/envelope.svg" alt="" className="footer__info-item-img" />
+                    <p className="footer__info-item-data"><a className="anchor" style={{ color: 'gray' }} href="mailto:audiologia-mef@gmail.com">audiologia-mef@gmail.com</a></p>
+                </div>
+            </div>
             <nav className="footer__nav">
                 <a href={`${weblink}/policy`} className="footer__link">Políticas</a>
                 <a href={`${weblink}/contact`} className="footer__link">Contacto</a>

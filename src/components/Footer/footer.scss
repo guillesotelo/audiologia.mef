@@ -3,9 +3,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 20vh;
-        background-color: #114b5f;
+        justify-content: space-evenly;
+        min-height: 50vh;
+        background-color: #fff;
     }
 
     &__nav {
@@ -19,13 +19,38 @@
     &__link {
         opacity: .8;
         transition: .3s;
-        color: lightgray !important;
+        color: gray !important;
         cursor: pointer;
         text-decoration: none !important;
         font-family: "Space Grotesk", sans-serif;
 
         &:hover {
             opacity: 1;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        &-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 25%;
+
+            &-img {
+                height: 2rem;
+                opacity: .6;
+            }
+
+            &-data {
+                color: gray;
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ type Props = {
 export default function Loader({ label, color, style }: Props) {
     return (
         <div className='loader__container' style={style}>
-            <HashLoader color={color || '#114b5f'} />
+            <HashLoader color={color || '#2fc4b2'} />
             {label ? <p style={{ color }}>{label}</p> : ''}
         </div>
     )

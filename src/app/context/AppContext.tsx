@@ -8,7 +8,9 @@ import { getUser } from '../../helpers'
 export const AppContext = createContext<AppContextType>({
     isMobile: false,
     isLoggedIn: null,
-    setIsLoggedIn: () => { }
+    setIsLoggedIn: () => { },
+    page: 'Home',
+    setPage: () => { }
 })
 
 type Props = {
@@ -19,6 +21,7 @@ export const AppProvider = ({ children }: Props) => {
     const [isMobile, setIsMobile] = useState<boolean>(false)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
     const [windowLoading, setWindowLoading] = useState(true)
+    const [page, setPage] = useState('Home')
 
     useEffect(() => {
         if (window && localStorage) setWindowLoading(false)
@@ -62,11 +65,15 @@ export const AppProvider = ({ children }: Props) => {
     const contextValue = React.useMemo(() => ({
         isMobile,
         setIsLoggedIn,
-        isLoggedIn
+        isLoggedIn,
+        page,
+        setPage
     }), [
         isMobile,
         setIsLoggedIn,
-        isLoggedIn
+        isLoggedIn,
+        page,
+        setPage
     ])
 
 

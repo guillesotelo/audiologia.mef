@@ -12,11 +12,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="en">
             <body>
                 <AppProvider>
-                    <WithHeaderAndFooter>
+                    {/* <WithHeaderAndFooter> */}
                         <GoogleAnalytics />
                         <Toaster />
                         {children}
-                    </WithHeaderAndFooter>
+                    {/* </WithHeaderAndFooter> */}
                 </AppProvider>
             </body>
         </html>
