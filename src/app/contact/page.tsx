@@ -9,7 +9,7 @@ export default function Contact({ }: Props) {
             <h1 className='page__title'>Contactanos</h1>
             <p className='page__text'>¡Nos encantaría saber de vos! Ya sea que tengas una consulta, comentarios o desees programar una cita, no dudes en escribirnos. Estamos aquí para ayudarte a cuidar de tu audición.</p>
 
-            <p className='page__text'>Consultas generales: <a href='mailto:audiologia-mef@gmail.com'>audiologia-mef@gmail.com</a></p>
+            <p className='page__text'>Consultas generales: <a href='mailto:audiologia.mef@gmail.com'>audiologia.mef@gmail.com</a></p>
 
             {/* <h2 className='page__subtitle'>Encuéntranos en Redes Sociales</h2>
             <div className="contact__social">

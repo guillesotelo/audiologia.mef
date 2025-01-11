@@ -36,7 +36,7 @@ export default function Footer({ }: Props) {
 
                 <div className="footer__info-item">
                     <img src="/assets/icons/envelope.svg" alt="" className="footer__info-item-img" />
-                    <p className="footer__info-item-data"><a className="anchor" style={{ color: 'gray' }} href="mailto:audiologia-mef@gmail.com">audiologia-mef@gmail.com</a></p>
+                    <p className="footer__info-item-data"><a className="anchor" style={{ color: 'gray' }} href="mailto:audiologia.mef@gmail.com">audiologia.mef@gmail.com</a></p>
                 </div>
             </div>
             <nav className="footer__nav">
