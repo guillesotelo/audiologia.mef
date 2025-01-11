@@ -43,6 +43,11 @@ const Home = () => {
               <div className="home__studies-item-underline" />
             </div>
             <div className="home__studies-item">
+              <img src="/assets/icons/voice.svg" alt="" className="home__studies-item-image" />
+              <p className="home__studies-item-text">Logoaudiometría</p>
+              <div className="home__studies-item-underline" />
+            </div>
+            <div className="home__studies-item">
               <img src="/assets/icons/wind.svg" alt="" className="home__studies-item-image" />
               <p className="home__studies-item-text">Impedanciometría</p>
               <div className="home__studies-item-underline" />
@@ -56,7 +61,7 @@ const Home = () => {
 
           <div className="home__row">
             <div className="home__col">
-              <h2 className="home__title">¿Por qué elegirnos?</h2>
+              <h2 className="home__col-title">¿Por qué elegirnos?</h2>
               <p className="home__text">
                 Trabajamos con vos, no solo para vos. Nuestro enfoque colaborativo, atención a los detalles y compromiso con la calidad aseguran que alcances tus objetivos de manera eficaz. Nos esforzamos por ser tu aliado ideal con un servicio confiable y personalizado para tu éxito.
               </p>
@@ -85,7 +90,7 @@ const Home = () => {
               <div className="home__studies-info-card-text">
                 <h3 className="home__studies-info-card-title">Audiometría Tonal</h3>
                 <p className="home__studies-info-card-description">
-                  La audiometría tonal es una prueba médica que evalúa la capacidad auditiva de una persona, determinando su umbral de audición y la tonalidad de los sonidos que puede percibir.
+                  La audiometría tonal es una prueba audiológica que evalúa la capacidad auditiva de una persona, determinando su umbral de audición y la tonalidad de los sonidos que puede percibir.
                 </p>
               </div>
             </div>
@@ -97,6 +102,17 @@ const Home = () => {
                 <h3 className="home__studies-info-card-title">Audiometría Vocal</h3>
                 <p className="home__studies-info-card-description">
                   La audiometría vocal, también conocida como logoaudiometría o audiometría verbal, es una prueba que evalúa la capacidad de una persona para comprender el lenguaje hablado.
+                </p>
+              </div>
+            </div>
+            <div className="home__studies-info-card">
+              <div className="home__studies-info-card-image">
+                <img src="/assets/icons/voice.svg" alt="" className="home__studies-info-image" />
+              </div>
+              <div className="home__studies-info-card-text">
+                <h3 className="home__studies-info-card-title">Logoaudiometría</h3>
+                <p className="home__studies-info-card-description">
+                  La logoaudiometría, también conocida como audiometría verbal, es una prueba auditiva que evalúa la capacidad de comprensión del lenguaje hablado.
                 </p>
               </div>
             </div>

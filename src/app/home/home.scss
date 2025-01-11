@@ -162,6 +162,14 @@
         flex-direction: column;
         justify-content: center;
         width: 30%;
+
+        &-title {
+            font-family: "Playfair Display", serif;
+            font-size: 2rem;
+            margin: 0;
+            font-weight: normal;
+            text-align: start;
+        }
     }
 
     &__side-image {
