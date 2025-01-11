@@ -16,15 +16,6 @@ type Props = {
 
 export default function Button({ label, handleClick, className, bgColor, textColor, disabled, svg, style }: Props) {
     const [buttonStyle, setButtonStyle] = useState<React.CSSProperties>({ ...style })
-    const { darkMode } = useContext(AppContext)
-
-    useEffect(() => {
-        setButtonStyle({
-            ...buttonStyle,
-            backgroundColor: bgColor || '',
-            color: textColor || 'black',
-        })
-    }, [darkMode])
 
     return svg ?
         <div
@@ -48,7 +39,7 @@ export default function Button({ label, handleClick, className, bgColor, textCol
             onMouseEnter={() => setButtonStyle({
                 ...style,
                 backgroundColor: 'transparent',
-                color: !darkMode ? isTooBright(bgColor) ? 'black' : bgColor : 'white' || ''
+                color: isTooBright(bgColor) ? 'black' : bgColor
             })}
             onMouseLeave={() => setButtonStyle({
                 ...style,
@@ -66,7 +57,7 @@ export default function Button({ label, handleClick, className, bgColor, textCol
             style={{
                 backgroundColor: bgColor || '',
                 border: `1px solid ${bgColor || ''}`,
-                color: !textColor && darkMode ? 'lightgray' : textColor || 'black',
+                color: !textColor ? 'lightgray' : textColor || 'black',
                 opacity: disabled ? '.3' : '',
                 cursor: disabled ? 'not-allowed' : '',
                 ...buttonStyle

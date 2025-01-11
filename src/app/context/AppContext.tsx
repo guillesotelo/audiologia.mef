@@ -18,12 +18,10 @@ type Props = {
 export const AppProvider = ({ children }: Props) => {
     const [isMobile, setIsMobile] = useState<boolean>(false)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
-    const [darkMode, setDarkMode] = useState(false)
     const [windowLoading, setWindowLoading] = useState(true)
 
     useEffect(() => {
         if (window && localStorage) setWindowLoading(false)
-        setDarkMode(JSON.parse(localStorage.getItem('preferredMode') || 'false'))
         setIsMobile(isMobileDevice())
 
         verifyUser()

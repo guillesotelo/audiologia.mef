@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { dataObj, userType, editionType, subscriptionType } from '../app/types';
+import { dataObj, userType } from '../app/types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
@@ -72,26 +72,26 @@ const getEditionByTitle = async (title: string) => {
     } catch (err) { console.error(err) }
 }
 
-const createEdition = async (data: editionType, token?: string) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/edition/create`, data, { withCredentials: true, params: { token } })
-        return res.data
-    } catch (err) { console.error(err) }
-}
+// const createEdition = async (data: editionType, token?: string) => {
+//     try {
+//         const res = await axios.post(`${BASE_URL}/api/edition/create`, data, { withCredentials: true, params: { token } })
+//         return res.data
+//     } catch (err) { console.error(err) }
+// }
 
-const updateEdition = async (data: editionType, token?: string) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/edition/update`, data, { withCredentials: true, params: { token } })
-        return res.data
-    } catch (err) { console.error(err) }
-}
+// const updateEdition = async (data: editionType, token?: string) => {
+//     try {
+//         const res = await axios.post(`${BASE_URL}/api/edition/update`, data, { withCredentials: true, params: { token } })
+//         return res.data
+//     } catch (err) { console.error(err) }
+// }
 
-const sendTestEdition = async (data: editionType, token?: string) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/edition/sendTest`, data, { withCredentials: true, params: { token } })
-        return res.data
-    } catch (err) { console.error(err) }
-}
+// const sendTestEdition = async (data: editionType, token?: string) => {
+//     try {
+//         const res = await axios.post(`${BASE_URL}/api/edition/sendTest`, data, { withCredentials: true, params: { token } })
+//         return res.data
+//     } catch (err) { console.error(err) }
+// }
 
 // Subscriptions
 const getAllEmails = async (token?: string) => {
@@ -108,26 +108,26 @@ const subscribeEmail = async (data: dataObj) => {
     } catch (err) { console.error(err) }
 }
 
-const updateSubscription = async (data: subscriptionType) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/app/updateSubscription`, data)
-        return res.data
-    } catch (err) { console.error(err) }
-}
+// const updateSubscription = async (data: subscriptionType) => {
+//     try {
+//         const res = await axios.post(`${BASE_URL}/api/app/updateSubscription`, data)
+//         return res.data
+//     } catch (err) { console.error(err) }
+// }
 
-const unsubscribeByEmail = async (data: subscriptionType) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/app/unsubscribeByEmail`, data)
-        return res.data
-    } catch (err) { console.error(err) }
-}
+// const unsubscribeByEmail = async (data: subscriptionType) => {
+//     try {
+//         const res = await axios.post(`${BASE_URL}/api/app/unsubscribeByEmail`, data)
+//         return res.data
+//     } catch (err) { console.error(err) }
+// }
 
-const sendUnsubscriptionEmail = async (data: subscriptionType) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/app/sendUnsubscriptionEmail`, data)
-        return res.data
-    } catch (err) { console.error(err) }
-}
+// const sendUnsubscriptionEmail = async (data: subscriptionType) => {
+//     try {
+//         const res = await axios.post(`${BASE_URL}/api/app/sendUnsubscriptionEmail`, data)
+//         return res.data
+//     } catch (err) { console.error(err) }
+// }
 
 const sendNewsletter = async (data: dataObj, token?: string) => {
     try {
@@ -147,9 +147,9 @@ export {
     sendContactEmail,
     subscribeEmail,
     getAllEmails,
-    updateSubscription,
-    unsubscribeByEmail,
-    sendUnsubscriptionEmail,
+    // updateSubscription,
+    // unsubscribeByEmail,
+    // sendUnsubscriptionEmail,
     sendNewsletter,
 
     loginUser,
@@ -161,7 +161,7 @@ export {
     getEditions,
     getEditionById,
     getEditionByTitle,
-    createEdition,
-    updateEdition,
-    sendTestEdition,
+//     createEdition,
+//     updateEdition,
+//     sendTestEdition,
 }

@@ -20,7 +20,6 @@ type Props = {
 
 export default function InputField(props: Props) {
     let isEnterKeyListenerAdded = false
-    const { darkMode } = useContext(AppContext)
 
     const {
         value,
@@ -56,29 +55,28 @@ export default function InputField(props: Props) {
 
     return type === 'textarea' ?
         <div className='inputfield__container' style={style}>
-            {label ? <h2 className={`inputfield__label${darkMode ? '--dark' : ''}`} style={{ color: darkMode ? 'lightgray' : '' }}>{label}</h2> : ''}
+            {label ? <h2 className={`inputfield__label`}>{label}</h2> : ''}
             <textarea
-                className={className || `textarea__default${darkMode ? '--dark' : ''}`}
+                className={className || `textarea__default`}
                 placeholder={placeholder || ''}
                 onChange={e => updateData ? updateData(name, e) : null}
                 value={value}
                 cols={cols}
                 rows={rows}
                 disabled={disabled}
-                style={{ resize: resize || 'none', color: darkMode ? 'lightgray' : '' }}
+                style={{ resize: resize || 'none' }}
             />
         </div>
         :
         <div className='inputfield__container' style={style}>
-            {label ? <h2 className={`inputfield__label${darkMode ? '--dark' : ''}`} style={{ color: darkMode ? 'lightgray' : '' }}>{label}</h2> : ''}
+            {label ? <h2 className={`inputfield__label`}>{label}</h2> : ''}
             <input
                 type={type || 'text'}
-                className={className || `inputfield__default${darkMode ? '--dark' : ''}`}
+                className={className || `inputfield__default`}
                 placeholder={placeholder || ''}
                 onChange={e => updateData ? updateData(name, e) : null}
                 value={value}
                 disabled={disabled}
-                style={{ color: darkMode ? 'lightgray' : '' }}
             />
         </div>
 }

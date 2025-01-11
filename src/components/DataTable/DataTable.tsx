@@ -43,7 +43,6 @@ export default function DataTable(props: Props) {
     const [startTime, setStartTime] = useState(new Date())
     const [loadingTime, setLoadingTime] = useState(0)
     const [dragging, setDragging] = useState(false)
-    const { darkMode } = useContext(AppContext)
 
     useEffect(() => {
         if (orderDataBy) orderBy(orderDataBy)
@@ -127,17 +126,17 @@ export default function DataTable(props: Props) {
     }
 
     const renderNoData = () => {
-        return <div className={`datatable__row${darkMode ? '--dark' : ''}`} style={{ height: '2vw', justifyContent: 'center', cursor: 'default' }}>
+        return <div className={`datatable__row$`} style={{ height: '2vw', justifyContent: 'center', cursor: 'default' }}>
             {`No ${name || 'data'} to show.`}
         </div>
     }
 
     const renderHeaders = () => {
-        return <div className={`datatable__headers${darkMode ? '--dark' : ''}`}>
+        return <div className={`datatable__headers`}>
             {tableHeaders.map((header: dataObj, i: number) =>
                 <h4
                     key={i}
-                    className={`datatable__header${darkMode ? '--dark' : ''}`}
+                    className={`datatable__header`}
                     onClick={() => orderBy(header)}
                     style={{ width: `${100 / tableHeaders?.length}%` }}>
                     {header.name} {Object.keys(ordered).includes(header.name) ? ordered[header.name] ? `▼` : `▲` : ''}
@@ -151,10 +150,10 @@ export default function DataTable(props: Props) {
             {tableData.map((row: dataObj, i: number) => i < maxItems &&
                 <div
                     key={i}
-                    className={selected === i ? `datatable__row-selected${darkMode ? '--dark' : ''}` : `datatable__row${darkMode ? '--dark' : ''}`}
+                    className={selected === i ? `datatable__row-selected` : `datatable__row`}
                     onClick={() => setSelected ? i === selected ? setSelected(-1) : setSelected(i) : {}}
                     style={{
-                        backgroundColor: !darkMode ? selected === i ? '#d4e1f6' : i % 2 === 0 ? 'white' : '#f5f5f5'
+                        backgroundColor: selected === i ? '#d4e1f6' : i % 2 === 0 ? '#f5f5f5'
                             : selected === i ? '#656565' : i % 2 === 0 ? '#383838' : '',
                         animationDelay: `${((i || 1) + (maxItems > 10 ? (max || 10) - maxItems : maxItems)) / 30}s`
                     }}>
@@ -166,7 +165,7 @@ export default function DataTable(props: Props) {
                                 width: `${100 / tableHeaders?.length}%`,
                                 color: header.value === 'status' && typeof row[header.value] === 'string' ? 'orange' :
                                     typeof row[header.value] === 'boolean' && header.value != 'userAlert' ?
-                                        row[header.value] ? darkMode ? '#00b000' : 'green' : 'red' : ''
+                                        row[header.value] ? 'green' : 'red' : ''
                             }}>
                             {(header.value === 'createdAt' || header.value === 'updatedAt' || header.value === 'start' || header.value === 'end')
                                 && row[header.value] ? `${getDate(row[header.value])}` :
@@ -185,9 +184,9 @@ export default function DataTable(props: Props) {
             )}
             {
                 maxItems < tableData?.length ?
-                    <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
+                    <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
                     : tableData?.length && maxItems >= tableData?.length && tableData?.length > (max || 10) ?
-                        <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
+                        <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
                         : ''
             }
         </div >
@@ -207,10 +206,10 @@ export default function DataTable(props: Props) {
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}>
-                                            <div className={selected === i ? `datatable__row-selected${darkMode ? '--dark' : ''}` : `datatable__row${darkMode ? '--dark' : ''}`}
+                                            <div className={selected === i ? `datatable__row-selected` : `datatable__row`}
                                                 onClick={() => setSelected ? i === selected ? setSelected(-1) : setSelected(i) : {}}
                                                 style={{
-                                                    backgroundColor: !darkMode ? selected === i ? '#d4e1f6' : i % 2 === 0 ? 'white' : '#f5f5f5'
+                                                    backgroundColor: selected === i ? '#d4e1f6' : i % 2 === 0 ? '#f5f5f5'
                                                         : selected === i ? '#656565' : i % 2 === 0 ? '#383838' : '',
                                                     animationDelay: `${((i || 1) + (maxItems > 10 ? (max || 10) - maxItems : maxItems)) / 30}s`
                                                 }}>
@@ -222,7 +221,7 @@ export default function DataTable(props: Props) {
                                                             width: `${100 / tableHeaders?.length}%`,
                                                             color: header.value === 'status' && typeof row[header.value] === 'string' ? 'orange' :
                                                                 typeof row[header.value] === 'boolean' && header.value != 'userAlert' ?
-                                                                    row[header.value] ? darkMode ? '#00b000' : 'green' : 'red' : ''
+                                                                    row[header.value] ? 'green' : 'red' : ''
                                                         }}>
                                                         {(header.value === 'createdAt' || header.value === 'updatedAt' || header.value === 'start' || header.value === 'end')
                                                             && row[header.value] ? `${getDate(row[header.value])}` :
@@ -242,9 +241,9 @@ export default function DataTable(props: Props) {
                             )}
                             {!dragging ?
                                 maxItems < tableData?.length ?
-                                    <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
+                                    <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
                                     : tableData?.length && maxItems >= tableData?.length && tableData?.length > (max || 10) ?
-                                        <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
+                                        <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
                                         : '' : ''
                             }
                         </div>
@@ -256,7 +255,7 @@ export default function DataTable(props: Props) {
     }
 
     return (
-        <div className={`datatable__container${darkMode ? '--dark' : ''}`} style={style}>
+        <div className={`datatable__container`} style={style}>
             <div className='datatable__titles'>
                 <h4 className='datatable__title'>{title || ''}</h4>
             </div>
