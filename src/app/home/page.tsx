@@ -2,36 +2,132 @@
 
 import Button from "src/components/Button/Button";
 import Footer from "src/components/Footer/Footer";
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useParams } from 'next/navigation'
 import Hamburger from 'hamburger-react'
 import { AppContext } from "../context/AppContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const router = useRouter()
   const page = usePathname()
   const { isMobile } = useContext(AppContext)
+
+  useEffect(() => {
+    const onScroll = (e: any) => {
+      const height = e.target.scrollTop
+      if (height > 50) setScrolled(true)
+      else setScrolled(false)
+    }
+
+    window.location.hash
+
+    document.body.addEventListener('scroll', onScroll)
+    return () => document.body.removeEventListener('scroll', onScroll)
+  }, [document.body])
 
   return (
     <>
       <div className="home__container">
         <div className="home__banner-info"></div>
         <div className="home__section">
-          <div className="home__header">
+          <div className={`home__header${scrolled ? '--scrolled' : ''}`}>
             <div className="home__header-col">
               <p className="home__header-logo-text">Audiología MEF</p>
             </div>
             <div className="home__header-col">
               {isMobile ? <div className="header__menu">
                 <Hamburger size={25} toggled={menuOpen} toggle={setMenuOpen} color='#2fc4b2' easing="ease-in" rounded label="Show menu" />
+                <div className={`header__menu-sidebar${menuOpen ? '--toggled' : ''}`}>
+                  <p
+                    className="header__menu-sidebar-item"
+                    style={{
+                      opacity: page === '/' && !window.location.hash ? 1 : '',
+                      color: page === '/' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => {
+                      router.push('/')
+                      setMenuOpen(false)
+                    }}
+                  >Home</p>
+                  <p
+                    className="header__menu-sidebar-item"
+                    style={{
+                      opacity: page === '/turnos' ? 1 : '',
+                      color: page === '/turnos' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => {
+                      router.push('/turnos')
+                      setMenuOpen(false)
+                    }}                  >Turnos</p>
+                  <p
+                    className="header__menu-sidebar-item"
+                    style={{
+                      opacity: page === '/' && window.location.hash === '#estudios' ? 1 : '',
+                      color: page === '/estudios' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => {
+                      router.push('/#estudios')
+                      setMenuOpen(false)
+                    }}                  >Estudios</p>
+                  <p
+                    className="header__menu-sidebar-item"
+                    style={{
+                      opacity: page === '/sobre-nosotros' ? 1 : '',
+                      color: page === '/sobre-nosotros' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => {
+                      router.push('/sobre-nosotros')
+                      setMenuOpen(false)
+                    }}                  >Sobre Nosotros</p>
+                  <p
+                    className="header__menu-sidebar-item"
+                    style={{
+                      opacity: page === '/contacto' ? 1 : '',
+                      color: page === '/contacto' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => {
+                      router.push('/contacto')
+                      setMenuOpen(false)
+                    }}                  >Contacto</p>
+                </div>
               </div>
                 : <>
-                  <p className="home__header-link" style={{ color: page === '/' ? '#2fc4b2' : '' }} onClick={() => router.push('/')}>Home</p>
-                  <p className="home__header-link" style={{ color: page === '/turnos' ? '#2fc4b2' : '' }} onClick={() => router.push('/turnos')}>Turnos</p>
-                  <p className="home__header-link" style={{ color: page === '/estudios' ? '#2fc4b2' : '' }} onClick={() => router.push('/#estudios')}>Estudios</p>
-                  <p className="home__header-link" style={{ color: page === '/sobre-nosotros' ? '#2fc4b2' : '' }} onClick={() => router.push('/sobre-nosotros')}>Sobre Nosotros</p>
-                  <p className="home__header-link" style={{ color: page === '/contacto' ? '#2fc4b2' : '' }} onClick={() => router.push('/contacto')}>Contacto</p>
+                  <p
+                    className="home__header-link"
+                    style={{
+                      color: page === '/' && !window.location.hash ? '#2fc4b2' : ''
+                    }} onClick={() => router.push('/')}
+                  >Home</p>
+                  <p
+                    className="home__header-link"
+                    style={{
+                      color: page === '/turnos' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => router.push('/turnos')}
+                  >Turnos</p>
+                  <p
+                    className="home__header-link"
+                    style={{
+                      color: page === '/' && window.location.hash === '#estudios' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => router.push('/#estudios')}
+                  >Estudios</p>
+                  <p
+                    className="home__header-link"
+                    style={{
+                      color: page === '/sobre-nosotros' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => router.push('/sobre-nosotros')}
+                  >Sobre Nosotros</p>
+                  <p
+                    className="home__header-link"
+                    style={{
+                      color: page === '/contacto' ? '#2fc4b2' : ''
+                    }}
+                    onClick={() => router.push('/contacto')}
+                  >Contacto</p>
                 </>
               }
             </div>
@@ -81,8 +177,12 @@ const Home = () => {
                 label="Agendá un turno ahora"
                 bgColor="#6ad1c5"
                 textColor="#fff"
-                handleClick={() => { }}
-                style={{ width: 'fit-content' }}
+                handleClick={() => router.push('/turnos')}
+                style={{
+                  width: isMobile ? '100%' : 'fit-content',
+                  marginTop: isMobile ? '1rem' : '',
+                  fontSize: isMobile ? '1.2rem' : ''
+                }}
               />
             </div>
             <div className="home__col">
@@ -104,7 +204,7 @@ const Home = () => {
           }}>
           <div id="estudios" style={{ position: 'absolute', top: 0 }}></div>
           <div className="home__studies-info">
-            <div className="home__studies-info-card">
+            <div className="home__studies-info-card" onClick={() => router.push('/estudios/audiometria')}>
               <div className="home__studies-info-card-image">
                 <img src="/assets/icons/headphones.svg" alt="" className="home__studies-info-image" />
               </div>
@@ -115,7 +215,7 @@ const Home = () => {
                 </p>
               </div>
             </div>
-            <div className="home__studies-info-card">
+            <div className="home__studies-info-card" onClick={() => router.push('/estudios/logoaudiometria')}>
               <div className="home__studies-info-card-image">
                 <img src="/assets/icons/voice.svg" alt="" className="home__studies-info-image" />
               </div>
@@ -126,7 +226,7 @@ const Home = () => {
                 </p>
               </div>
             </div>
-            <div className="home__studies-info-card">
+            <div className="home__studies-info-card" onClick={() => router.push('/estudios/impedanciometria')}>
               <div className="home__studies-info-card-image">
                 <img src="/assets/icons/wind.svg" alt="" className="home__studies-info-image" />
               </div>
@@ -137,7 +237,7 @@ const Home = () => {
                 </p>
               </div>
             </div>
-            <div className="home__studies-info-card">
+            <div className="home__studies-info-card" onClick={() => router.push('/estudios/potencial-evocado')}>
               <div className="home__studies-info-card-image">
                 <img src="/assets/icons/baby.svg" alt="" className="home__studies-info-image" />
               </div>
@@ -217,7 +317,14 @@ const Home = () => {
         </div>
 
         <div className="home__section" style={{ height: 'fit-content' }}>
-          <div className="home__studies" style={{ justifyContent: 'space-evenly' }}>
+          <div
+            className="home__studies"
+            style={{
+              justifyContent: 'space-evenly',
+              gap: isMobile ? '2rem' : '',
+              padding: isMobile ? '3rem 1rem' : ''
+            }}
+          >
             <div className="home__cta-text">
               <p className="home__cta-text-title">¿Que estas esperando?</p>
               <p className="home__cta-text-subtitle">Contactate con nosotros para sacarte todas tus dudas.</p>
@@ -229,7 +336,6 @@ const Home = () => {
               handleClick={() => router.push('/contacto')}
               style={{
                 width: 'fit-content',
-                marginRight: !isMobile ? '2rem' : '',
                 transform: !isMobile ? 'scale(1.2)' : ''
               }}
             />

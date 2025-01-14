@@ -132,8 +132,8 @@
         &-sidebar {
             height: 100vh;
             position: fixed;
-            top: 7.8vh;
-            right: -80vw;
+            top: 10vh;
+            right: -100vw;
             background-color: transparent;
             z-index: 3;
             transition: .5s;
@@ -142,11 +142,13 @@
             flex-direction: column;
             align-items: flex-end;
             justify-content: flex-start;
+            padding: 2rem 0;
+            gap: 1rem;
 
             &--toggled {
                 height: 100vh;
                 position: fixed;
-                top: 7.8vh;
+                top: 10vh;
                 right: 0;
                 background-color: transparent;
                 transition: .4s;
@@ -158,6 +160,8 @@
                 justify-content: flex-start;
                 animation: toggle-hader-menu .3s ease-in forwards;
                 animation-delay: .2s;
+                padding: 2rem 0;
+                gap: 1rem;
             }
 
             &-container {
@@ -179,7 +183,7 @@
             }
 
             &-item {
-                width: 70%;
+                // width: 70%;
                 margin: 0 auto;
                 cursor: pointer;
                 transition: .2s;
@@ -188,6 +192,8 @@
                 gap: 1rem;
                 align-items: center;
                 justify-content: flex-start;
+                font-size: 1.5rem;
+                color: #fff;
 
                 &:active {
                     transform: scale(1.05)
