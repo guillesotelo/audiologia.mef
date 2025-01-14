@@ -8,6 +8,8 @@ import Button from '../../components/Button/Button';
 import { AppContext } from '../context/AppContext';
 import { onChangeEventType } from '../types';
 import { useRouter } from 'next/navigation';
+import Header from 'src/components/Header/Header';
+import Footer from 'src/components/Footer/Footer';
 
 type Props = {}
 
@@ -40,30 +42,34 @@ export default function Login({ }: Props) {
     }
 
     return (
-        <div className="login__container">
-            <h1 className="page__title">Login</h1>
-            <div className="login__box">
-                <InputField
-                    label='Email'
-                    name='email'
-                    updateData={updateData}
-                    type='email'
-                />
-                <InputField
-                    label='Password'
-                    name='password'
-                    updateData={updateData}
-                    type='password'
-                />
-                <Button
-                    label='Login'
-                    handleClick={onLogin}
-                    disabled={!data.email || !data.password || loading}
-                    style={{ width: '100%' }}
-                    textColor='white'
-                    bgColor='#2fc4b2'
-                />
+        <>
+            <Header />
+            <div className="login__container">
+                <h1 className="page__title">Login</h1>
+                <div className="login__box">
+                    <InputField
+                        label='Email'
+                        name='email'
+                        updateData={updateData}
+                        type='email'
+                    />
+                    <InputField
+                        label='Password'
+                        name='password'
+                        updateData={updateData}
+                        type='password'
+                    />
+                    <Button
+                        label='Login'
+                        handleClick={onLogin}
+                        disabled={!data.email || !data.password || loading}
+                        style={{ width: '100%' }}
+                        textColor='white'
+                        bgColor='#2fc4b2'
+                    />
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     )
 }

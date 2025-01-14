@@ -4,6 +4,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+        gap: 2rem;
         min-height: 50vh;
         background-color: #fff;
     }
@@ -25,7 +26,7 @@
         font-family: "Space Grotesk", sans-serif;
 
         &:hover {
-            opacity: 1;
+            color: #2fc4b2 !important;
         }
     }
 
@@ -34,6 +35,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
         width: 100%;
 
         &-item {
@@ -41,7 +43,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
             width: 25%;
+            margin: 0 2rem;
+
+            &:hover .footer__info-item-data {
+                color: #2fc4b2;
+            }
 
             &-img {
                 height: 2rem;
@@ -50,6 +58,25 @@
 
             &-data {
                 color: gray;
+                transition: .2s;
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .footer {
+        &__container {
+            padding-bottom: 2rem;
+        }
+
+        &__info {
+            gap: 2rem;
+            padding: 2rem 0;
+
+            &-item {
+                width: 90%;
             }
         }
     }

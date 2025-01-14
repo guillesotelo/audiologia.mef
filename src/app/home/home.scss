@@ -13,6 +13,18 @@
         position: relative;
     }
 
+    &__slogan {
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        top: 30%;
+        color: #fff;
+        font-size: 3.5rem;
+        width: 35rem;
+        max-width: 90vw;
+        font-family: "Playfair Display", serif;
+    }
+
     &__main {
         &-bg {
             width: 100%;
@@ -48,6 +60,11 @@
         &-link {
             color: white;
             cursor: pointer;
+            transition: .2s;
+
+            &:hover {
+                opacity: .6;
+            }
         }
 
         &-logo {
@@ -57,6 +74,11 @@
                 font-size: 1.5rem;
                 cursor: pointer;
                 width: fit-content;
+                transition: .2s;
+
+                &:hover {
+                    color: #2fc4b2 !important;
+                }
             }
         }
     }
@@ -120,6 +142,11 @@
                 flex-direction: row;
                 gap: 1rem;
                 cursor: pointer;
+                transition: .2s;
+
+                &:hover {
+                    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.1);
+                }
 
                 &-image {
                     height: 4rem;
@@ -151,7 +178,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        height: 75vh;
+        height: 100%;
         gap: 4rem;
         font-family: "Playfair Display", serif;
         color: #364d59;
@@ -262,4 +289,60 @@
     }
 }
 
-@media only screen and (max-width: 640px) {}
+@media only screen and (max-width: 768px) {
+    .home {
+
+        &__header {
+            &-col {
+                margin: 1rem 1rem 1rem 2rem;
+            }
+        }
+
+        &__main {
+            &-bg-img {
+                object-position: -400px;
+            }
+        }
+
+        &__row {
+            flex-direction: column;
+        }
+
+        &__col {
+            width: 80%;
+        }
+
+        &__studies {
+            height: fit-content;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 3rem 0;
+
+            &-item {
+                width: 100%;
+                gap: 0;
+            }
+        }
+
+        &__side-image-container {
+            height: 100%;
+        }
+
+        &__studies {
+            &-info {
+                &-card {
+                    width: 90%;
+                }
+            }
+        }
+
+        &__testimony {
+            width: 90%;
+        }
+
+        &__cta-text {
+            width: 90%;
+            text-align: center;
+        }
+    }
+}

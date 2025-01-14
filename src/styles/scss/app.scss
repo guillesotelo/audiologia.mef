@@ -28,6 +28,11 @@
 .anchor {
     text-decoration: none;
     color: #259b8d;
+    transition: .2s;
+
+    &:hover {
+        color: #3ec4b4;
+    }
 }
 
 .page__container {
@@ -35,4 +40,12 @@
     width: 50vw;
     font-family: "Playfair Display", serif;
     min-height: 40vh;
+}
+
+@media only screen and (max-width: 768px) {
+    .page {
+        &__container {
+            width: 90vw;
+        }
+    }
 }

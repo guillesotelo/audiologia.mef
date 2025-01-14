@@ -1,6 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
+  "/turnos/page": "app/turnos/page.js",
+  "/politicas/page": "app/politicas/page.js",
+  "/contacto/page": "app/contacto/page.js",
+  "/sobre-nosotros/page": "app/sobre-nosotros/page.js",
   "/api/user/verify/route": "app/api/user/verify/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
 }

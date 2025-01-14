@@ -4,13 +4,12 @@ import React, { createContext, useEffect, useState } from 'react'
 import { AppContextType } from '../types'
 import { verifyToken } from '../../services'
 import { getUser } from '../../helpers'
+import { usePathname } from 'next/navigation'
 
 export const AppContext = createContext<AppContextType>({
     isMobile: false,
     isLoggedIn: null,
-    setIsLoggedIn: () => { },
-    page: 'Home',
-    setPage: () => { }
+    setIsLoggedIn: () => { }
 })
 
 type Props = {
@@ -21,7 +20,6 @@ export const AppProvider = ({ children }: Props) => {
     const [isMobile, setIsMobile] = useState<boolean>(false)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
     const [windowLoading, setWindowLoading] = useState(true)
-    const [page, setPage] = useState('Home')
 
     useEffect(() => {
         if (window && localStorage) setWindowLoading(false)
@@ -65,15 +63,11 @@ export const AppProvider = ({ children }: Props) => {
     const contextValue = React.useMemo(() => ({
         isMobile,
         setIsLoggedIn,
-        isLoggedIn,
-        page,
-        setPage
+        isLoggedIn
     }), [
         isMobile,
         setIsLoggedIn,
-        isLoggedIn,
-        page,
-        setPage
+        isLoggedIn
     ])
 
 
