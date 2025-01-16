@@ -155,6 +155,11 @@ const Home = () => {
             <div className="home__studies-item-underline" />
           </div>
           <div className="home__studies-item">
+            <img src="/assets/icons/voice.svg" alt="" className="home__studies-item-image" />
+            <p className="home__studies-item-text">Otoemisiones Acústicas</p>
+            <div className="home__studies-item-underline" />
+          </div>
+          <div className="home__studies-item">
             <img src="/assets/icons/wind.svg" alt="" className="home__studies-item-image" />
             <p className="home__studies-item-text">Impedanciometría</p>
             <div className="home__studies-item-underline" />
@@ -326,7 +331,7 @@ const Home = () => {
             }}
           >
             <div className="home__cta-text">
-              <p className="home__cta-text-title">¿Que estas esperando?</p>
+              <p className="home__cta-text-title">¿Necesitas consultar algo?</p>
               <p className="home__cta-text-subtitle">Contactate con nosotros para sacarte todas tus dudas.</p>
             </div>
             <Button
