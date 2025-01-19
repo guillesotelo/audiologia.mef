@@ -13,16 +13,19 @@
         position: relative;
     }
 
-    &__slogan {
+    &__cta {
         position: absolute;
         // z-index: 1;
         right: 0;
-        top: 30%;
-        color: #fff;
-        font-size: 3.5rem;
+        top: 20%;
         width: 35rem;
         max-width: 90vw;
-        font-family: "Playfair Display", serif;
+
+        &-slogan {
+            color: #fff;
+            font-size: 3.5rem;
+            font-family: "Playfair Display", serif;
+        }
     }
 
     &__main {
@@ -306,7 +309,6 @@
 
 @media only screen and (max-width: 768px) {
     .home {
-
         &__header {
             &-col {
                 margin: 1rem 1rem 1rem 2rem;
@@ -325,6 +327,21 @@
 
         &__col {
             width: 80%;
+        }
+
+        &__cta {
+            top: 40%;
+            width: 90%;
+            right: 5%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            &-slogan {
+                font-size: 2rem;
+                text-align: right;
+            }
         }
 
         &__studies {

@@ -1,10 +1,6 @@
 {
   "/page": "app/page.js",
   "/sobre-nosotros/page": "app/sobre-nosotros/page.js",
-  "/contacto/page": "app/contacto/page.js",
-  "/estudios/audiometria/page": "app/estudios/audiometria/page.js",
-  "/turnos/page": "app/turnos/page.js",
-  "/estudios/logoaudiometria/page": "app/estudios/logoaudiometria/page.js",
-  "/estudios/potencial-evocado/page": "app/estudios/potencial-evocado/page.js",
-  "/api/user/verify/route": "app/api/user/verify/route.js"
+  "/api/user/verify/route": "app/api/user/verify/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

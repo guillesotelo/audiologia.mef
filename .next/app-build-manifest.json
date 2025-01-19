@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/sobre-nosotros/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/sobre-nosotros/page.js"
+      "static/chunks/app/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -11,35 +11,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
+    "/sobre-nosotros/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/contacto/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/contacto/page.js"
-    ],
-    "/turnos/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/turnos/page.js"
-    ],
-    "/estudios/audiometria/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/estudios/audiometria/page.js"
-    ],
-    "/estudios/potencial-evocado/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/estudios/potencial-evocado/page.js"
-    ],
-    "/estudios/logoaudiometria/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/estudios/logoaudiometria/page.js"
+      "static/chunks/app/sobre-nosotros/page.js"
     ]
   }
 }

@@ -135,7 +135,19 @@ const Home = () => {
           <div className="home__main-bg">
             <img src="/assets/images/audiologia-mef2.jpg" alt="Audiología MEF" draggable={false} className="home__main-bg-img" />
           </div>
-          <p className="home__slogan">Cuidamos tu <strong>audición</strong>, transformamos <br />tu <strong>bienestar</strong>.</p>
+          <div className="home__cta">
+            <p className="home__cta-slogan">Cuidamos tu <strong>audición</strong>, transformamos <br />tu <strong>bienestar</strong>.</p>
+            <Button
+              label="Agendá un turno ahora"
+              bgColor="#6ad1c5"
+              textColor="#fff"
+              handleClick={() => router.push('/turnos')}
+              style={{
+                width: 'fit-content',
+                fontSize: '1.2rem'
+              }}
+            />
+          </div>
         </div>
 
         <div className="home__studies">
@@ -173,13 +185,17 @@ const Home = () => {
 
         <div className="home__section">
           <div className="home__row">
-            <div className="home__col">
+            <div
+              className="home__col"
+              style={{
+                alignItems: isMobile ? 'center' : ''
+              }}>
               <h2 className="home__col-title">¿Por qué elegirnos?</h2>
-              <p className="home__text">
+              <p className="home__text" style={{ textAlign: isMobile ? 'center' : 'start' }}>
                 Trabajamos con vos, no solo para vos. Nuestro enfoque colaborativo, atención a los detalles y compromiso con la calidad aseguran que alcances tus objetivos de manera eficaz. Nos esforzamos por ser tu aliado ideal con un servicio confiable y personalizado para tu éxito.
               </p>
               <Button
-                label="Agendá un turno ahora"
+                label="Ver estudios y turnos disponibles"
                 bgColor="#6ad1c5"
                 textColor="#fff"
                 handleClick={() => router.push('/turnos')}
@@ -335,7 +351,7 @@ const Home = () => {
               <p className="home__cta-text-subtitle">Contactate con nosotros para sacarte todas tus dudas.</p>
             </div>
             <Button
-              label="Contactanos ahora"
+              label="Contactanos"
               bgColor="#fff"
               textColor="#6ad1c5"
               handleClick={() => router.push('/contacto')}
