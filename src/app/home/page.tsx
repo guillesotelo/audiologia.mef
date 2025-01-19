@@ -272,7 +272,13 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="home__section" style={{ background: '#eeeeee' }}>
+        <div
+          className="home__section"
+          style={{
+            background: '#eeeeee',
+            height: isMobile ? 'fit-content' : '',
+            paddingBottom: isMobile ? '1rem' : '',
+          }}>
           <p className="home__subtitle">Testimonios</p>
           <h2 className="home__title">Pacientes satisfechos</h2>
           <div className="home__testimonies">

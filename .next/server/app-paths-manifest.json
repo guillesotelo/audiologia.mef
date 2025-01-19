@@ -2,5 +2,6 @@
   "/page": "app/page.js",
   "/sobre-nosotros/page": "app/sobre-nosotros/page.js",
   "/api/user/verify/route": "app/api/user/verify/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/turnos/page": "app/turnos/page.js"
 }

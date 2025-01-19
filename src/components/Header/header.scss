@@ -143,7 +143,7 @@
             align-items: flex-end;
             justify-content: flex-start;
             padding: 2rem 0;
-            gap: 1rem;
+            gap: 2rem;
 
             &--toggled {
                 height: 100vh;
@@ -151,7 +151,7 @@
                 top: 10vh;
                 right: 0;
                 background-color: transparent;
-                transition: .4s;
+                transition: .5s;
                 z-index: 3;
                 width: 100vw;
                 display: flex;
@@ -161,13 +161,13 @@
                 animation: toggle-hader-menu .3s ease-in forwards;
                 animation-delay: .2s;
                 padding: 2rem 0;
-                gap: 1rem;
+                gap: 2rem;
             }
 
             &-container {
                 height: 100%;
                 background-color: #114b5f;
-                transition: .4s;
+                transition: .5s;
                 z-index: 3;
                 width: 60vw;
                 display: flex;
