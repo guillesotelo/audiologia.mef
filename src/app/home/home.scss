@@ -229,6 +229,16 @@
         &-container {
             height: 50%;
         }
+
+        &-square {
+            position: absolute;
+            width: 23rem;
+            height: 12rem;
+            border: 8px dotted #2fc4b2;
+            border-radius: 4rem 6rem 4rem 6rem;
+            transform: translate(-21px, -224px);
+            z-index: -1;
+        }
     }
 
     &__title {
