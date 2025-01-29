@@ -10,12 +10,13 @@ import InputField from "src/components/InputField/InputField"
 import Calendar from 'react-calendar'
 import { TileDisabledFunc } from 'react-calendar/dist/cjs/shared/types'
 import QRCode from "react-qr-code"
+import { createBooking } from "src/services"
 
 type Props = {}
 
 const voidStudy = { value: '', label: '', duration: 0 }
 const voidData = {
-    name: '',
+    firstName: '',
     lastName: '',
     email: '',
     phone: '',
@@ -33,6 +34,7 @@ export default function Turnos({ }: Props) {
     const [selectedTime, setSelectedTime] = useState(null)
     const [calendarLink, setCalendarLink] = useState('')
     const [booked, setBooked] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [qr, setQr] = useState('')
 
     useEffect(() => {
@@ -40,13 +42,13 @@ export default function Turnos({ }: Props) {
     }, [])
 
     useEffect(() => {
-        if (data.name && data.lastName && (data.phone || data.email) && date) {
+        if (data.firstName && data.lastName && (data.phone || data.email) && date) {
             const start = date.toISOString().replace(/[^\w\s]/gi, '')
             const end = endDate ? endDate.toISOString().replace(/[^\w\s]/gi, '') : start
             const details = `Audiolog%C3%ADa+MEF+-+${selectedStudy.label}%0D%0A%0D%0AProfesional%3A+Lic.+Mar%C3%ADa+Elisa+Fontana%0D%0ADirecci%C3%B3n%3A+A.+del+Valle+171%2C+Concordia%2C+ER%0D%0ATel%3A+%280345%29+422-2639%0D%0A%0D%0ASi+desea+cancelar+el+turno+o+no+puede+asistir%2C+debe+informarlo+al+menos+24+horas+antes+de+la+hora+de+comienzo.%0D%0A%0D%0AGracias+y+nos+vemos+pronto%21`
 
             setCalendarLink(`https://calendar.google.com/calendar/u/0/r/eventedit?text=${selectedStudy.label.replace(' ', '+')}&details=${details}&dates=${start}/${end}`)
-            setQr(`turno?name=${data.name}&lastName=${data.lastName}&phone=${data.phone}&email=${data.email}&date=${date.getTime()}`)
+            setQr(`turno?name=${data.firstName}&lastName=${data.lastName}&phone=${data.phone}&email=${data.email}&date=${date.getTime()}`)
         } else setQr('')
     }, [data, date])
 
@@ -72,10 +74,18 @@ export default function Turnos({ }: Props) {
 
     const saveBooking = async () => {
         try {
-            toast.success('¡Turno confirmado!')
-            setBooked(true)
+            setLoading(true)
+            const booked = await createBooking({ ...data, studyId: selectedStudy.value })
+            if (booked && booked._id) {
+                toast.success('¡Turno confirmado!')
+                setBooked(true)
+            } else {
+                toast.error('Ocurrió un error al guardar. Por favor intenta nuevamente.')
+            }
+            setLoading(false)
         } catch (error) {
             toast.error('Ocurrió un error al guardar. Por favor intenta nuevamente.')
+            setLoading(false)
         }
     }
 
@@ -108,7 +118,7 @@ export default function Turnos({ }: Props) {
         // console.log('selectedStudy', selectedStudy)
         // console.log('date', date)
 
-        return Boolean(data.name && data.lastName
+        return Boolean(data.firstName && data.lastName
             && (data.email || data.phone)
             && date && selectedStudy.label)
     }
@@ -163,7 +173,7 @@ export default function Turnos({ }: Props) {
                                 /> : ''}
                             </div>
                             <InputField
-                                name="name"
+                                name="firstName"
                                 label="Nombre(s) de pila"
                                 updateData={updateData}
                             />
@@ -188,14 +198,15 @@ export default function Turnos({ }: Props) {
                                     handleClick={cancel}
                                     bgColor="gray"
                                     textColor="#fff"
+                                    disabled={booked}
                                 />
                                 <Button
                                     label="Confirmar turno"
                                     handleClick={saveBooking}
                                     bgColor="#6ad1c5"
                                     textColor="#fff"
-                                    disabled={!checkData()}
-                                    loading={booked}
+                                    disabled={!checkData() || booked}
+                                    loading={loading}
                                 />
                             </div>
                         </div>

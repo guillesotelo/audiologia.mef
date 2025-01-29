@@ -1,6 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/sobre-nosotros/page": "app/sobre-nosotros/page.js",
-  "/turnos/page": "app/turnos/page.js",
-  "/estudios/logoaudiometria/page": "app/estudios/logoaudiometria/page.js"
+  "/turnos/page": "app/turnos/page.js"
 }

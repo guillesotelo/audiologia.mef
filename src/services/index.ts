@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { dataObj, userType } from '../app/types';
+import { dataObj, userType, bookingType } from '../app/types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
@@ -49,89 +49,53 @@ const logOut = async () => {
     } catch (err) { return false }
 }
 
-
-// Edition
-const getEditions = async (token?: string) => {
+// Booking
+const getBookings = async (token?: string) => {
     try {
-        const res = await axios.get(`${BASE_URL}/api/edition/getAll`, { withCredentials: true, params: { token } })
+        const res = await axios.get(`${BASE_URL}/api/booking/getAll`, { withCredentials: true, params: { token } })
         return Array.isArray(res.data) ? res.data : []
     } catch (err) { console.error(err) }
 }
 
-const getEditionById = async (_id: string, token?: string) => {
+const getBookingSlots = async (studyId: string) => {
     try {
-        const res = await axios.get(`${BASE_URL}/api/edition/getById`, { params: { _id, token }, withCredentials: true })
+        const res = await axios.get(`${BASE_URL}/api/booking/getSlots`, { params: { studyId } })
+        return Array.isArray(res.data) ? res.data : []
+    } catch (err) { console.error(err) }
+}
+
+const getBookingById = async (_id: string, token?: string) => {
+    try {
+        const res = await axios.get(`${BASE_URL}/api/booking/getById`, { params: { _id, token }, withCredentials: true })
         return res.data
     } catch (err) { console.error(err) }
 }
 
-const getEditionByTitle = async (title: string) => {
+const createBooking = async (data: bookingType) => {
     try {
-        const res = await axios.get(`${BASE_URL}/api/edition/getByTitle`, { params: { title }, withCredentials: true })
+        const res = await axios.post(`${BASE_URL}/api/booking/create`, data)
         return res.data
     } catch (err) { console.error(err) }
 }
 
-// const createEdition = async (data: editionType, token?: string) => {
-//     try {
-//         const res = await axios.post(`${BASE_URL}/api/edition/create`, data, { withCredentials: true, params: { token } })
-//         return res.data
-//     } catch (err) { console.error(err) }
-// }
+const updateBooking = async (data: bookingType, token?: string) => {
+    try {
+        const res = await axios.post(`${BASE_URL}/api/booking/update`, data, { withCredentials: true, params: { token } })
+        return res.data
+    } catch (err) { console.error(err) }
+}
 
-// const updateEdition = async (data: editionType, token?: string) => {
-//     try {
-//         const res = await axios.post(`${BASE_URL}/api/edition/update`, data, { withCredentials: true, params: { token } })
-//         return res.data
-//     } catch (err) { console.error(err) }
-// }
+const cancelBooking = async (data: bookingType) => {
+    try {
+        const res = await axios.post(`${BASE_URL}/api/booking/cancel`, data)
+        return res.data
+    } catch (err) { console.error(err) }
+}
 
-// const sendTestEdition = async (data: editionType, token?: string) => {
-//     try {
-//         const res = await axios.post(`${BASE_URL}/api/edition/sendTest`, data, { withCredentials: true, params: { token } })
-//         return res.data
-//     } catch (err) { console.error(err) }
-// }
-
-// Subscriptions
+// Mailing
 const getAllEmails = async (token?: string) => {
     try {
         const res = await axios.get(`${BASE_URL}/api/app/getEmails`, { withCredentials: true, params: { token } })
-        return res.data
-    } catch (err) { console.error(err) }
-}
-
-const subscribeEmail = async (data: dataObj) => {
-    try {
-        const response = await axios.post(`${BASE_URL}/api/app/subscribe`, data)
-        return response.data
-    } catch (err) { console.error(err) }
-}
-
-// const updateSubscription = async (data: subscriptionType) => {
-//     try {
-//         const res = await axios.post(`${BASE_URL}/api/app/updateSubscription`, data)
-//         return res.data
-//     } catch (err) { console.error(err) }
-// }
-
-// const unsubscribeByEmail = async (data: subscriptionType) => {
-//     try {
-//         const res = await axios.post(`${BASE_URL}/api/app/unsubscribeByEmail`, data)
-//         return res.data
-//     } catch (err) { console.error(err) }
-// }
-
-// const sendUnsubscriptionEmail = async (data: subscriptionType) => {
-//     try {
-//         const res = await axios.post(`${BASE_URL}/api/app/sendUnsubscriptionEmail`, data)
-//         return res.data
-//     } catch (err) { console.error(err) }
-// }
-
-const sendNewsletter = async (data: dataObj, token?: string) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/api/edition/sendCampaign`, data, { withCredentials: true, params: { token } })
         return res.data
     } catch (err) { console.error(err) }
 }
@@ -145,12 +109,7 @@ const sendContactEmail = async (data: dataObj) => {
 
 export {
     sendContactEmail,
-    subscribeEmail,
     getAllEmails,
-    // updateSubscription,
-    // unsubscribeByEmail,
-    // sendUnsubscriptionEmail,
-    sendNewsletter,
 
     loginUser,
     verifyToken,
@@ -158,10 +117,10 @@ export {
     updateUser,
     logOut,
 
-    getEditions,
-    getEditionById,
-    getEditionByTitle,
-//     createEdition,
-//     updateEdition,
-//     sendTestEdition,
+    getBookings,
+    getBookingSlots,
+    getBookingById,
+    createBooking,
+    updateBooking,
+    cancelBooking,
 }

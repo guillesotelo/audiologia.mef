@@ -16,3 +16,15 @@ export type userType = {
     newData?: { [key: string]: string }
     token?: string
 }
+
+export type bookingType = {
+    _id?: string
+    studyId?: string
+    firstName?: string
+    lastName?: string
+    email?: string
+    phone?: string | number
+    otherData?: { [key: string]: string } | string
+    createdAt?: Date | number | string,
+    updatedAt?: Date | number | string,
+}

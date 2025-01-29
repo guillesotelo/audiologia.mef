@@ -1,4 +1,4 @@
-// File: /Users/guillermo/Documents/projects/audiologia.mef/src/app/api/user/verify/route.ts
+// File: /home/guillermo/Documents/git/audiologia.mef/src/app/api/user/verify/route.ts
 import * as entry from '../../../../../../src/app/api/user/verify/route.js'
 import type { NextRequest } from 'next/server.js'
 
