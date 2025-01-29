@@ -8,9 +8,11 @@
 @import '../../components/DataTable/datatable.scss';
 @import '../../components/Modal/modal.scss';
 @import '../../components/Loader/loader.scss';
+@import './calendar.scss';
 
 @import '../../app/login/login.scss';
 @import '../../app/home/home.scss';
+@import '../../app/turnos/turnos.scss';
 
 // ::-webkit-scrollbar {
 //     background: transparent;
@@ -37,10 +39,18 @@
 
 .page__container {
     padding-top: 10vh;
-    margin: 2rem auto 10rem;
+    margin: 0 auto 10rem;
     width: 50vw;
-    font-family: "Playfair Display", serif;
+    font-family: 'Lato', sans-serif;
     min-height: 40vh;
+
+    &-admin {
+        // width: 100%;
+        padding-top: 10vh;
+        margin: 0 2rem 10rem;
+        font-family: "Playfair Display", serif;
+        min-height: 40vh;
+    }
 }
 
 @media only screen and (max-width: 768px) {

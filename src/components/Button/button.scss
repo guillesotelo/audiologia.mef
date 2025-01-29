@@ -19,6 +19,24 @@
             transition: .4s;
         }
 
+        &-loader {
+            font-size: 1rem;
+            background-color: #2fc4b300;
+            width: fit-content;
+            padding: 0;
+            border-radius: .3rem;
+            transition: .2s;
+            border: none;
+            border: 1px solid #2fc4b2;
+            width: 100%;
+            cursor: not-allowed !important;
+            place-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: .7;
+        }
     }
 
     &__header {

@@ -20,6 +20,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/turnos/page.js"
+    ],
+    "/estudios/logoaudiometria/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/estudios/logoaudiometria/page.js"
     ]
   }
 }

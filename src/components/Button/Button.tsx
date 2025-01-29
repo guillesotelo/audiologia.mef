@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../app/context/AppContext'
 import { isTooBright } from '../../helpers'
 import Image from 'next/image'
+import { PuffLoader, ScaleLoader, SyncLoader } from 'react-spinners'
 
 type Props = {
     label?: string
@@ -12,9 +13,22 @@ type Props = {
     disabled?: boolean
     svg?: string
     style?: React.CSSProperties
+    loading?: boolean
 }
 
-export default function Button({ label, handleClick, className, bgColor, textColor, disabled, svg, style }: Props) {
+export default function Button(props: Props) {
+    const {
+        label,
+        handleClick,
+        className,
+        bgColor,
+        textColor,
+        disabled,
+        svg,
+        style,
+        loading
+    } = props
+
     const [buttonStyle, setButtonStyle] = useState<React.CSSProperties>({ ...style })
 
     return svg ?
@@ -51,29 +65,34 @@ export default function Button({ label, handleClick, className, bgColor, textCol
             {label || ''}
         </div>
         :
-        <button
-            className={className || 'button__default'}
-            onClick={handleClick}
-            style={{
-                backgroundColor: bgColor || '',
-                border: `1px solid ${bgColor || ''}`,
-                color: !textColor ? 'lightgray' : textColor || 'black',
-                opacity: disabled ? '.3' : '',
-                cursor: disabled ? 'not-allowed' : '',
-                ...buttonStyle
-            }}
-            disabled={disabled}
-            onMouseEnter={() => setButtonStyle({
-                ...style,
-                backgroundColor: 'transparent',
-                color: bgColor || ''
-            })}
-            onMouseLeave={() => setButtonStyle({
-                ...style,
-                backgroundColor: bgColor || '',
-                color: textColor || 'black',
-            })}
-        >
-            {label || ''}
-        </button>
+        loading ?
+            <div className="button__default-loader">
+                <SyncLoader size={6} color='#2fc4b2' />
+            </div>
+            :
+            <button
+                className={className || 'button__default'}
+                onClick={handleClick}
+                style={{
+                    backgroundColor: bgColor || '',
+                    border: `1px solid ${bgColor || ''}`,
+                    color: !textColor ? 'lightgray' : textColor || 'black',
+                    opacity: disabled ? '.3' : '',
+                    cursor: disabled ? 'not-allowed' : '',
+                    ...buttonStyle
+                }}
+                disabled={disabled}
+                onMouseEnter={() => setButtonStyle({
+                    ...style,
+                    backgroundColor: 'transparent',
+                    color: bgColor || ''
+                })}
+                onMouseLeave={() => setButtonStyle({
+                    ...style,
+                    backgroundColor: bgColor || '',
+                    color: textColor || 'black',
+                })}
+            >
+                {label || ''}
+            </button>
 }
