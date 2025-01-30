@@ -4,7 +4,7 @@ import { AppContext } from '../../app/context/AppContext'
 
 type Props = {
     name: string
-    updateData?: (name: string, e: onChangeEventType) => void
+    updateData?: (name: string, e: onChangeEventType, max?: number) => void
     className?: string
     type?: string
     label?: string
@@ -16,6 +16,7 @@ type Props = {
     disabled?: boolean
     onSubmit?: () => void
     resize?: 'vertical' | 'horizontal' | 'both'
+    maxLength?: number
 }
 
 export default function InputField(props: Props) {
@@ -34,7 +35,8 @@ export default function InputField(props: Props) {
         style,
         disabled,
         onSubmit,
-        resize
+        resize,
+        maxLength
     } = props
 
     useEffect(() => {
@@ -59,12 +61,13 @@ export default function InputField(props: Props) {
             <textarea
                 className={className || `textarea__default`}
                 placeholder={placeholder || ''}
-                onChange={e => updateData ? updateData(name, e) : null}
+                onChange={e => updateData ? updateData(name, e, maxLength) : null}
                 value={value}
                 cols={cols}
                 rows={rows}
                 disabled={disabled}
                 style={{ resize: resize || 'none' }}
+                maxLength={maxLength}
             />
         </div>
         :
@@ -74,9 +77,10 @@ export default function InputField(props: Props) {
                 type={type || 'text'}
                 className={className || `inputfield__default`}
                 placeholder={placeholder || ''}
-                onChange={e => updateData ? updateData(name, e) : null}
+                onChange={e => updateData ? updateData(name, e, maxLength) : null}
                 value={value}
                 disabled={disabled}
+                maxLength={maxLength}
             />
         </div>
 }

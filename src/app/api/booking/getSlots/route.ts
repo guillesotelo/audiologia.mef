@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
         await connectToDatabase()
 
         const studyId = request.nextUrl.searchParams.get('studyId')
-        const bookingsByServiceId = Booking.find({ studyId })
+        const bookingsByServiceId = await Booking.find({ studyId }).lean()
 
         return NextResponse.json(bookingsByServiceId)
     } catch (err: any) {

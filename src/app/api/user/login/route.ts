@@ -1,28 +1,31 @@
-import { NextResponse } from 'next/server';
-import axios from 'axios';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { NextResponse } from 'next/server'
+import User from 'src/models/User'
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export async function POST(request: Request) {
     try {
-        const user = await request.json();
-        const res = await axios.post(`${API_URL}/api/user/login`, user);
-        const finalUser = res.data;
-        const { token } = finalUser;
+        const { email, password } = await request.json()
 
-        console.log('Attempting to set cookie with token:', token.substring(0, 10) + '...'); // Log part of the token
+        const user = await User.findOne({ email })
+
+        if (!user || !bcrypt.compareSync(password, user.password)) {
+            return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+        }
+        const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "1h" })
 
         // Create the Set-Cookie header manually
-        const response = NextResponse.json(finalUser, { status: 200 });
+        const response = NextResponse.json({ token })
 
         response.headers.append(
             'Set-Cookie',
             `token=${token}; HttpOnly; Secure; SameSite=None; Max-Age=${3600 * 24 * 30}; Path=/`
         );
 
-        return response;
+        return response
     } catch (err: any) {
-        console.error('Error setting cookie:', err);
-        return NextResponse.json({ error: err.code }, { status: err.status || 500 });
+        console.error('Error setting cookie:', err)
+        return NextResponse.json({ error: err.code }, { status: err.status || 500 })
     }
 }

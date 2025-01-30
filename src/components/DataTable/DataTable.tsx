@@ -21,6 +21,8 @@ type Props = {
     saveTableDataOrder?: (value: dataObj[]) => void
 }
 
+const dateTypes = ['createdAt', 'updatedAt', 'end', 'start', 'age', 'date']
+
 export default function DataTable(props: Props) {
     const {
         tableData,
@@ -68,18 +70,18 @@ export default function DataTable(props: Props) {
         const copyData = [...tableData]
         const orderedData = copyData.slice().sort((a, b) => {
             if (ordered[header.name]) {
-                if (header.value === 'createdAt' || header.value === 'updatedAt') {
-                    if (new Date(a[header.value]).getTime() < new Date(b[header.value]).getTime()) return -1
-                    if (new Date(a[header.value]).getTime() > new Date(b[header.value]).getTime()) return 1
+                if (dateTypes.includes(header.value)) {
+                    if (new Date(a[header.value]).getTime() < new Date(b[header.value]).getTime()) return 1
+                    if (new Date(a[header.value]).getTime() > new Date(b[header.value]).getTime()) return -1
                 }
                 if (a[header.value] && !b[header.value]) return -1
                 if (!a[header.value] && b[header.value]) return 1
                 if (a[header.value] > b[header.value]) return -1
                 if (a[header.value] < b[header.value]) return 1
             } else {
-                if (header.value === 'createdAt' || header.value === 'updatedAt') {
-                    if (new Date(a[header.value]).getTime() > new Date(b[header.value]).getTime()) return -1
-                    if (new Date(a[header.value]).getTime() < new Date(b[header.value]).getTime()) return 1
+                if (dateTypes.includes(header.value)) {
+                    if (new Date(a[header.value]).getTime() > new Date(b[header.value]).getTime()) return 1
+                    if (new Date(a[header.value]).getTime() < new Date(b[header.value]).getTime()) return -1
                 }
                 if (a[header.value] && !b[header.value]) return 1
                 if (!a[header.value] && b[header.value]) return -1
@@ -167,8 +169,8 @@ export default function DataTable(props: Props) {
                                     typeof row[header.value] === 'boolean' && header.value != 'userAlert' ?
                                         row[header.value] ? 'green' : 'red' : ''
                             }}>
-                            {(header.value === 'createdAt' || header.value === 'updatedAt' || header.value === 'start' || header.value === 'end')
-                                && row[header.value] ? `${getDate(row[header.value])}` :
+                            {dateTypes.includes(header.value)
+                                && row[header.value] ? `${getDate(row[header.value], header.value !== 'age')}` :
                                 header.value === 'active' || header.value === 'isSuper' ? row[header.value] ? 'Yes' : 'No' :
                                     header.value === 'createdBy' ? row[header.value] ? `User: ${row[header.value]}` : 'App' :
                                         header.value === 'status' ? typeof row[header.value] === 'string' ? row[header.value] : row[header.value] ? 'UP' : 'DOWN' :
@@ -223,8 +225,8 @@ export default function DataTable(props: Props) {
                                                                 typeof row[header.value] === 'boolean' && header.value != 'userAlert' ?
                                                                     row[header.value] ? 'green' : 'red' : ''
                                                         }}>
-                                                        {(header.value === 'createdAt' || header.value === 'updatedAt' || header.value === 'start' || header.value === 'end')
-                                                            && row[header.value] ? `${getDate(row[header.value])}` :
+                                                        {dateTypes.includes(header.value)
+                                                            && row[header.value] ? `${getDate(row[header.value], header.value !== 'age')}` :
                                                             header.value === 'active' || header.value === 'isSuper' ? row[header.value] ? 'Yes' : 'No' :
                                                                 header.value === 'createdBy' ? row[header.value] ? `User: ${row[header.value]}` : 'App' :
                                                                     header.value === 'status' ? row[header.value] ? 'UP' : 'DOWN' :

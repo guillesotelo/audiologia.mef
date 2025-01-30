@@ -13,7 +13,7 @@
         width: 100%;
 
         &:hover {
-            filter: brightness(110%);
+            // filter: brightness(110%);
             border: 1px solid #929292;
             background-color: transparent;
             transition: .4s;
@@ -63,29 +63,4 @@
     &__svg {
         height: 1.5vw;
     }
-}
-
-@media only screen and (max-width: 640px) {
-    // .button {
-    //     &__default {
-    //         background-color: #6d6097a6;
-    //         width: fit-content;
-    //         padding: 3vw;
-    //         border-radius: 1.5vw;
-    //         cursor: pointer;
-    //         transition: .2s;
-    //         border: none;
-
-    //         &:hover {
-    //             filter: brightness(110%);
-    //             transition: .3s;
-    //         }
-
-    //     }
-
-    //     &__svg {
-    //         height: 8vw;
-    //         padding: 1vw;
-    //     }
-    // }
 }

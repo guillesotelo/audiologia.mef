@@ -16,17 +16,21 @@
         font-family: 'Lato', sans-serif;
 
         &-container {
-            width: 40%;
+            width: 25rem;
             box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.29);
             border-radius: 1rem;
             transition: 1s;
+
+            &-booked {
+                animation: go-away-left 1s ease-in forwards;
+            }
         }
 
         &-btns {
             display: flex;
             flex-direction: row;
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
 
         &-datetime {
@@ -35,10 +39,33 @@
             gap: .5rem;
             margin: .5rem 0;
         }
+
+        &-age {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            &-container {
+                padding: .5rem;
+                border: 1px solid lightgray;
+                border-radius: .5rem;
+                margin: .5rem 0;
+            }
+
+            &-title {
+                margin: 0 0 1vh 0;
+                font-size: .8rem;
+                font-weight: normal;
+                width: 100%;
+                color: #696869;
+                text-align: left;
+            }
+        }
     }
 
     &__voucher {
-        width: 25%;
+        width: 25rem;
         height: fit-content;
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.29);
         border-radius: 1rem;
@@ -49,6 +76,11 @@
         opacity: 0;
         transition: 1s;
         animation: move-x-left 1s ease-in forwards;
+
+        &-confirmed {
+            margin: 1rem 1rem 0;
+            color: #059786;
+        }
 
         &-details {
             display: flex;

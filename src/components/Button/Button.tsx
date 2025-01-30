@@ -14,6 +14,7 @@ type Props = {
     svg?: string
     style?: React.CSSProperties
     loading?: boolean
+    outline?: boolean
 }
 
 export default function Button(props: Props) {
@@ -26,7 +27,8 @@ export default function Button(props: Props) {
         disabled,
         svg,
         style,
-        loading
+        loading,
+        outline
     } = props
 
     const [buttonStyle, setButtonStyle] = useState<React.CSSProperties>({ ...style })
@@ -37,7 +39,7 @@ export default function Button(props: Props) {
             onClick={handleClick}
             style={{
                 backgroundColor: bgColor || '',
-                border: `1px solid ${bgColor || ''}`,
+                border: `1px solid ${outline ? textColor : bgColor || ''}`,
                 color: textColor || 'black',
                 opacity: disabled ? '.3' : '',
                 padding: '.2vw',
@@ -52,8 +54,8 @@ export default function Button(props: Props) {
             }}
             onMouseEnter={() => setButtonStyle({
                 ...style,
-                backgroundColor: 'transparent',
-                color: isTooBright(bgColor) ? 'black' : bgColor
+                backgroundColor: outline ? textColor : 'transparent',
+                color: outline ? bgColor : isTooBright(bgColor) ? 'black' : bgColor
             })}
             onMouseLeave={() => setButtonStyle({
                 ...style,
@@ -75,7 +77,7 @@ export default function Button(props: Props) {
                 onClick={handleClick}
                 style={{
                     backgroundColor: bgColor || '',
-                    border: `1px solid ${bgColor || ''}`,
+                    border: `1px solid ${outline ? textColor : bgColor || ''}`,
                     color: !textColor ? 'lightgray' : textColor || 'black',
                     opacity: disabled ? '.3' : '',
                     cursor: disabled ? 'not-allowed' : '',
@@ -84,7 +86,7 @@ export default function Button(props: Props) {
                 disabled={disabled}
                 onMouseEnter={() => setButtonStyle({
                     ...style,
-                    backgroundColor: 'transparent',
+                    backgroundColor: outline ? textColor : 'transparent',
                     color: bgColor || ''
                 })}
                 onMouseLeave={() => setButtonStyle({

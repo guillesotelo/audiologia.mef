@@ -48,10 +48,24 @@
         // width: 100%;
         padding-top: 10vh;
         margin: 0 2rem 10rem;
-        font-family: "Playfair Display", serif;
+        // font-family: "Playfair Display", serif;
         min-height: 40vh;
     }
 }
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: .4rem;
+    // height: .4rem;
+    // border-radius: .3rem;
+    // background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #42424257;
+    // border-radius: .2rem;
+}
+
 
 @media only screen and (max-width: 768px) {
     .page {

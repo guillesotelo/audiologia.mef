@@ -1,34 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
-import axios from 'axios'
-import { getToken } from '../../(helpers)'
+import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
-export async function POST(request: NextRequest) {
+export async function GET(req: NextRequest) {
+    const authHeader = req.headers.get("authorization");
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const token = authHeader.split(" ")[1];
+
     try {
-        const reqToken = await getToken(request)
-        console.log('Token from request:', reqToken);
-
-        const config = { headers: { authorization: `Bearer ${reqToken}` } }
-        const res = await axios.post(`${API_URL}/api/user/verify`, {}, config)
-        console.log('API response:', res.data);
-
-        const verified = res.data
-        const { token } = verified
-
-        // Use NextResponse to set cookies in the response
-        const response = NextResponse.json(verified)
-        response.headers.append('Set-Cookie', `token=${token}; HttpOnly; Secure; SameSite=None; Max-Age=${3600 * 24 * 30}; Path=/`)
-
-        return response
-    } catch (err: any) {
-        console.error('Next API Error:', {
-            message: err.message,
-            stack: err.stack,
-            response: err.response?.data,
-            status: err.response?.status,
-            headers: err.response?.headers,
-        })
-        return NextResponse.json({ error: err.message }, { status: err.status || 401 })
+        const decoded = jwt.verify(token, JWT_SECRET);
+        return NextResponse.json({ loggedIn: true, user: decoded }, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ loggedIn: false, error: "Invalid token" }, { status: 401 });
     }
 }

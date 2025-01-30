@@ -4,13 +4,17 @@ const bookingSchema = new mongoose.Schema(
     {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
-        email: { type: String, required: true, unique: true },
-        phone: { type: String, required: true, unique: true },
-        age: { type: Number, required: true },
+        email: { type: String },
+        phone: { type: String },
+        age: { type: String, required: true },
+        date: { type: String, required: true },
+        calendarLink: { type: String },
+        qr: { type: String },
         studyId: { type: String, required: true },
-        otherData: { type: String, required: true },
+        studyName: { type: String, required: true },
+        otherData: { type: String },
     },
-    { timestamps: true }
+    { timestamps: true, strict: false }
 )
 
 const Booking = mongoose.models.Booking || mongoose.model("Booking", bookingSchema)
