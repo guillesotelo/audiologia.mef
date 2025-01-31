@@ -10,7 +10,7 @@
         top: 0;
         left: 0;
         background-color: transparent;
-        z-index: 3;
+        z-index: 10;
         align-self: center !important;
         justify-self: center !important;
         animation: fade-in-down .2s ease-in forwards;
@@ -143,4 +143,8 @@
             }
         }
     }
+}
+
+.close-animation {
+    animation: close-animation .2s ease-in forwards !important;
 }

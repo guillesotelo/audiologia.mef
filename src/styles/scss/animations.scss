@@ -49,14 +49,21 @@
         transform: translateX(0);
     }
 
-    50% {
-        transform: translateX(-150%);
-        width: 12.5rem;
+    80% {
+        transform: translateX(-300%);
+        width: 25rem;
+    }
+
+    90% {
+        transform: translateX(-400%);
+        width: 0;
+        opacity: 0;
     }
 
     100% {
-        transform: translateX(-300%);
+        transform: translateX(-400%);
         width: 0;
+        opacity: 0;
         display: none;
     }
 }
@@ -226,7 +233,7 @@
 
     100% {
         opacity: 0;
-        transform: translateY(-10%);
+        transform: translateY(-20%);
     }
 }
 

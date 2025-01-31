@@ -1,7 +1,5 @@
 {
-  "/turnos/page": "app/turnos/page.js",
-  "/page": "app/page.js",
-  "/api/booking/getAll/route": "app/api/booking/getAll/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/user/verify/route": "app/api/user/verify/route.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/api/booking/getAll/route": "app/api/booking/getAll/route.js"
 }

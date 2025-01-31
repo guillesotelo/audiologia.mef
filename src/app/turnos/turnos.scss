@@ -1,11 +1,16 @@
 .booking {
+
+    &__container {
+        padding-top: 10vh;
+        min-height: 80vh;
+    }
+
     &__row {
         display: flex;
         flex-direction: row;
         justify-content: center;
         gap: 3rem;
         transition: 1s;
-        margin-top: 3rem;
     }
 
     &__form {

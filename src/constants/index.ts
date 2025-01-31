@@ -36,3 +36,12 @@ export const bookingHeaders = [
         value: 'date'
     },
 ]
+
+export const studies = [
+    { value: 'audiometria', label: 'Audiometría', duration: 1 },
+    { value: 'logoaudiometria', label: 'Logoaudiometría', duration: 1 },
+    { value: 'otoemisiones', label: 'Otoemisiones Acústicas', duration: 1 },
+    { value: 'impedanciometria', label: 'Impedaciometría', duration: 1 },
+    { value: 'potencial', label: 'Potencial Evocado', duration: 1 },
+    { value: 'otoemisiones-potencial', label: 'Otoemisiones Acústicas y Potencial Evocado', duration: 1 },
+]

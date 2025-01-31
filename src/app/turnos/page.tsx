@@ -13,6 +13,8 @@ import QRCode from "react-qr-code"
 import { createBooking, getBookings } from "src/services"
 import { bookingType, dataObj } from "../types"
 import { getDate } from "src/helpers"
+import { usePathname } from "next/navigation"
+import { studies } from "src/constants"
 
 type Props = {}
 
@@ -32,7 +34,6 @@ export default function Turnos({ }: Props) {
     const [timeOptions, setTimeOptions] = useState<Date[]>([])
     const [openCalendar, setOpenCalendar] = useState(false)
     const [selectedStudy, setSelectedStudy] = useState(voidStudy)
-    const [selectedTime, setSelectedTime] = useState<Date | null>(null)
     const [calendarLink, setCalendarLink] = useState('')
     const [booked, setBooked] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -54,7 +55,6 @@ export default function Turnos({ }: Props) {
     useEffect(() => {
         if (selectedStudy && selectedStudy.value) getAllBookings()
         setDate(null)
-        setSelectedTime(null)
         setOpenCalendar(false)
     }, [selectedStudy])
 
@@ -103,21 +103,18 @@ export default function Turnos({ }: Props) {
         if (max && String(value).length > max) {
             value = isNumber ? Number(String(value).slice(0, max)) : value.slice(0, max)
         }
+
+        const ageKeys = ['ageDay', 'ageMonth', 'ageYear']
+        if (ageKeys.includes(key)) {
+            value = Number(value) > 0 ? value : 1
+        }
         setData(prev => ({ ...prev, [key]: value }))
     }
-
-    const studies = [
-        { value: 'audiometria', label: 'Audiometría', duration: 1 },
-        { value: 'logoaudiometria', label: 'Logoaudiometría', duration: 1 },
-        { value: 'otoemisiones', label: 'Otoemisiones Acústicas', duration: 1 },
-        { value: 'impedanciometria', label: 'Impedaciometría', duration: 1 },
-        { value: 'potencial', label: 'Potencial Evocado', duration: 1 },
-        { value: 'otoemisiones-potencial', label: 'Otoemisiones Acústicas y Potencial Evocado', duration: 1 },
-    ]
 
     const cancel = () => {
         setData(voidData)
         setDate(null)
+        setBooked(false)
         setSelectedStudy(voidStudy)
     }
 
@@ -157,7 +154,6 @@ export default function Turnos({ }: Props) {
     }
 
     const selectDate = (date: any) => {
-        setSelectedTime(null)
         setDate(date)
         setOpenCalendar(false)
     }
@@ -192,15 +188,22 @@ export default function Turnos({ }: Props) {
         a.click()
     }
 
+    const refreshPage = () => {
+        const a = document.createElement('a')
+        a.href = window.location.href
+        a.click()
+    }
+
     return (
         <>
             <Header />
-            <div className="page__container-admin">
+            <div className="booking__container">
                 {/* <h1 className='page__title' style={{ textAlign: 'center' }}>Turnos</h1> */}
                 <div className="booking__row">
                     <div className={`booking__form-container ${booked ? 'booking__form-container-booked' : ''}`}>
                         <div className="booking__form">
-                            <p className='page__text'>Completá el formulario con tu información y elegí una fecha y hora para tu próximo turno:</p>
+                            <h2 style={{ margin: '1rem 0 0' }}>Nuevo turno</h2>
+                            <p className='page__text' style={{ margin: '0 0 1rem' }}>Completá el formulario con tu información y elegí una fecha y hora para tu próximo turno:</p>
                             <Dropdown
                                 label="Tipo de estudio"
                                 options={studies}
@@ -240,7 +243,7 @@ export default function Turnos({ }: Props) {
                             {date && date.getHours() !== 0 ? <>
                                 <InputField
                                     name="firstName"
-                                    label="Nombre(s) de pila"
+                                    label="Nombre(s)"
                                     updateData={updateData}
                                     placeholder="María Victoria"
                                 />
@@ -358,7 +361,7 @@ export default function Turnos({ }: Props) {
                             />
                             <Button
                                 label="Sacar otro turno"
-                                handleClick={openCalendarTab}
+                                handleClick={refreshPage}
                                 bgColor="#fff"
                                 textColor="#6ad1c5"
                                 disabled={!booked}

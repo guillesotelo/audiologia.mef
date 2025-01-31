@@ -20,14 +20,19 @@ export type userType = {
 export type bookingType = {
     _id?: string
     studyId?: string
+    studyName?: string
     firstName?: string
+    title?: string
     lastName?: string
     date?: Date | null
     email?: string
+    start?: Date | null
+    end?: Date | null
     phone?: string | number
     calendarLink?: string
     qr?: string
     age?: Date | number | string
+    duration?: number
     otherData?: { [key: string]: string } | string
     createdAt?: Date | number | string
     updatedAt?: Date | number | string
