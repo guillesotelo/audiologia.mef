@@ -10,10 +10,9 @@ import InputField from "src/components/InputField/InputField"
 import Calendar from 'react-calendar'
 import { TileDisabledFunc } from 'react-calendar/dist/cjs/shared/types'
 import QRCode from "react-qr-code"
-import { createBooking, getBookings } from "src/services"
+import { createOrUpdateBooking, getBookings } from "src/services"
 import { bookingType, dataObj } from "../types"
 import { getDate } from "src/helpers"
-import { usePathname } from "next/navigation"
 import { studies } from "src/constants"
 
 type Props = {}
@@ -130,7 +129,7 @@ export default function Turnos({ }: Props) {
                 qr,
                 age: new Date(`${data.ageYear}-${data.ageMonth}-${data.ageDay}`)
             }
-            const booked = await createBooking(bookingData)
+            const booked = await createOrUpdateBooking(bookingData)
             if (booked && booked._id) {
                 toast.success('¡Turno confirmado!')
                 setBooked(true)
@@ -237,9 +236,12 @@ export default function Turnos({ }: Props) {
                                             selected={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
                                             setSelected={selectTime}
                                         /> :
-                                        <p style={{ color: 'red' }}>No hay horarios disponibles para este día.</p>
+                                        slotsLoading ? <p>Cargando horarios...</p>
+                                            :
+                                            <p style={{ color: 'red' }}>No hay horarios disponibles para este día.</p>
                                         : ''}
-                                </div> : ''}
+                                </div>
+                                : ''}
                             {date && date.getHours() !== 0 ? <>
                                 <InputField
                                     name="firstName"

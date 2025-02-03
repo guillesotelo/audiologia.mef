@@ -21,18 +21,18 @@ export type bookingType = {
     _id?: string
     studyId?: string
     studyName?: string
-    firstName?: string
-    title?: string
-    lastName?: string
     date?: Date | null
+    firstName?: string
+    lastName?: string
     email?: string
+    phone?: string | number
+    age?: Date | number | string
     start?: Date | null
     end?: Date | null
-    phone?: string | number
     calendarLink?: string
     qr?: string
-    age?: Date | number | string
     duration?: number
+    title?: string
     otherData?: { [key: string]: string } | string
     createdAt?: Date | number | string
     updatedAt?: Date | number | string

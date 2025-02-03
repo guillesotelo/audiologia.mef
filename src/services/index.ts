@@ -71,7 +71,7 @@ const getBookingById = async (_id: string, token?: string) => {
     } catch (err) { console.error(err) }
 }
 
-const createBooking = async (data: bookingType) => {
+const createOrUpdateBooking = async (data: bookingType) => {
     try {
         const res = await axios.post(`${BASE_URL}/api/booking/create`, data)
         return res.data
@@ -120,7 +120,7 @@ export {
     getBookings,
     getBookingSlots,
     getBookingById,
-    createBooking,
+    createOrUpdateBooking,
     updateBooking,
     cancelBooking,
 }

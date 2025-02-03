@@ -1,5 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/admin/page": "app/admin/page.js",
-  "/api/booking/getAll/route": "app/api/booking/getAll/route.js"
+  "/api/user/verify/route": "app/api/user/verify/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/booking/getAll/route": "app/api/booking/getAll/route.js",
+  "/turnos/page": "app/turnos/page.js"
 }

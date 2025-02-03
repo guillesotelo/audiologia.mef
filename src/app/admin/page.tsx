@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Footer from "src/components/Footer/Footer"
 import Header from "src/components/Header/Header"
-import { cancelBooking, createBooking, getBookings } from "src/services"
+import { cancelBooking, createOrUpdateBooking, getBookings } from "src/services"
 import { bookingType, dataObj } from "../types"
 import DataTable from "src/components/DataTable/DataTable"
 import { bookingHeaders, studies } from "src/constants"
@@ -18,6 +18,7 @@ import Calendar, { TileDisabledFunc } from "react-calendar"
 import Button from "src/components/Button/Button"
 import InputField from "src/components/InputField/InputField"
 import toast from "react-hot-toast"
+import { BounceLoader } from "react-spinners"
 
 type Props = {}
 
@@ -46,6 +47,7 @@ export default function Turnos({ }: Props) {
     const [loading, setLoading] = useState(false)
     const [calendarLink, setCalendarLink] = useState('')
     const [qr, setQr] = useState('')
+    const localizer = momentLocalizer(moment)
 
     useEffect(() => {
         getAllBookings()
@@ -56,7 +58,15 @@ export default function Turnos({ }: Props) {
     }, [view])
 
     useEffect(() => {
-        setDate(null)
+
+        // We do this to reset the time selected
+        if (date && date.getHours() === 0) {
+            const newDate = new Date(date)
+            newDate.setHours(0)
+            newDate.setMinutes(0)
+            setDate(newDate)
+        }
+
         setOpenCalendar(false)
     }, [selectedStudy])
 
@@ -64,8 +74,8 @@ export default function Turnos({ }: Props) {
         const current: any = selected || newBooking || {}
         if (current) {
             const start = new Date(current.date || new Date()).toISOString().replace(/[^\w\s]/gi, '')
-            const end = current.end ? current.end.toISOString().replace(/[^\w\s]/gi, '') : start
-            const details = `Audiolog%C3%ADa+MEF+-+${selectedStudy.label}%0D%0A%0D%0AProfesional%3A+Lic.+Mar%C3%ADa+Elisa+Fontana%0D%0ADirecci%C3%B3n%3A+A.+del+Valle+171%2C+Concordia%2C+ER%0D%0ATel%3A+%280345%29+422-2639%0D%0A%0D%0ASi+desea+cancelar+el+turno+o+no+puede+asistir%2C+debe+informarlo+al+menos+24+horas+antes+de+la+hora+de+comienzo.%0D%0A%0D%0AGracias+y+nos+vemos+pronto%21`
+            const end = current.end ? new Date(current.end).toISOString().replace(/[^\w\s]/gi, '') : start
+            const details = `Audiolog%C3%ADa+MEF+-+${selectedStudy.label || data.studyName}%0D%0A%0D%0AProfesional%3A+Lic.+Mar%C3%ADa+Elisa+Fontana%0D%0ADirecci%C3%B3n%3A+A.+del+Valle+171%2C+Concordia%2C+ER%0D%0ATel%3A+%280345%29+422-2639%0D%0A%0D%0ASi+desea+cancelar+el+turno+o+no+puede+asistir%2C+debe+informarlo+al+menos+24+horas+antes+de+la+hora+de+comienzo.%0D%0A%0D%0AGracias+y+nos+vemos+pronto%21`
 
             setCalendarLink(`https://calendar.google.com/calendar/u/0/r/eventedit?text=${selectedStudy.label.replace(' ', '+')}&details=${details}&dates=${start}/${end}`)
             setQr(`${web}turno?name=${current.firstName}&lastName=${current.lastName}&phone=${current.phone}&email=${current.email}&date=${new Date(date).getTime()}`)
@@ -116,10 +126,12 @@ export default function Turnos({ }: Props) {
                 qr,
                 age: new Date(`${data.ageYear}-${data.ageMonth}-${data.ageDay}`)
             }
-            const booked = await createBooking(bookingData)
+            const booked = await createOrUpdateBooking(bookingData)
             if (booked && booked._id) toast.success('¡Turno guardado!')
             else toast.error('Ocurrió un error al guardar. Por favor intenta nuevamente.')
             setLoading(false)
+            emptyData()
+            getAllBookings()
         } catch (error) {
             toast.error('Ocurrió un error al guardar. Por favor intenta nuevamente.')
             setLoading(false)
@@ -128,6 +140,7 @@ export default function Turnos({ }: Props) {
 
     const getAllBookings = async () => {
         try {
+            setSlotsLoading(true)
             const slots = await getBookings()
             if (slots && Array.isArray(slots)) setBookings(slots)
             setSlotsLoading(false)
@@ -136,8 +149,6 @@ export default function Turnos({ }: Props) {
             console.error(error)
         }
     }
-
-    const localizer = momentLocalizer(moment)
 
     const getCalendarEvents = () => {
         let bookingEvents: bookingType[] = []
@@ -237,17 +248,17 @@ export default function Turnos({ }: Props) {
         setData(prev => ({ ...prev, [key]: value }))
     }
 
-    const cancel = () => {
+    const emptyData = () => {
         setData(voidData)
         setDate(null)
-        setCalendarDate(null)
+        // setCalendarDate(null)
         setSelectedStudy(voidStudy)
         setSelected(null)
         setNewBooking(null)
     }
 
     const checkData = () => {
-        const current: any = selected || newBooking
+        const current: any = data
         return Boolean(current.firstName && current.lastName
             && (current.email || current.phone)
             && (current.ageDay && current.ageMonth && current.ageYear)
@@ -282,7 +293,15 @@ export default function Turnos({ }: Props) {
     return (
         <>
             <Header />
-            <div className="page__container-admin">
+            {slotsLoading ?
+                <Modal>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <BounceLoader size={50} color="#2fc4b2" />
+                        <p>Cargando turnos...</p>
+                    </div>
+                </Modal>
+                : ''}
+            <div className="page__container-admin" style={{ filter: slotsLoading ? 'blur(5px)' : '' }}>
                 <h1 style={{ filter: selected || newBooking ? 'blur(5px)' : '' }}>Panel administrador</h1>
                 {removeBooking ?
                     <Modal
@@ -306,11 +325,10 @@ export default function Turnos({ }: Props) {
                             />
                         </div>
                     </Modal>
-                    :
-                    newBooking ?
+                    : selected || newBooking ?
                         <Modal
-                            title={newBooking.studyName || 'Nuevo turno'}
-                            onClose={() => setNewBooking(null)}>
+                            title={selected ? selected.studyName : (newBooking?.studyName || 'Nuevo turno')}
+                            onClose={emptyData}>
                             <div className="booking__form">
                                 <Dropdown
                                     label="Tipo de estudio"
@@ -412,13 +430,13 @@ export default function Turnos({ }: Props) {
                                 />
                                 <div className="booking__form-btns">
                                     <Button
-                                        label="Cancelar"
-                                        handleClick={cancel}
+                                        label={newBooking ? 'Cancelar' : "Descartar cambios"}
+                                        handleClick={emptyData}
                                         bgColor="gray"
                                         textColor="#fff"
                                     />
                                     <Button
-                                        label="Confirmar turno"
+                                        label={newBooking ? 'Confirmar turno' : "Guardar cambios"}
                                         handleClick={saveBooking}
                                         bgColor="#6ad1c5"
                                         textColor="#fff"
@@ -426,139 +444,19 @@ export default function Turnos({ }: Props) {
                                         loading={loading}
                                     />
                                 </div>
-                            </div>
-                        </Modal> :
-                        selected ?
-                            <Modal
-                                title={selected.studyName}
-                                onClose={() => setSelected(null)}>
-                                <div className="booking__form">
-                                    <Dropdown
-                                        label="Tipo de estudio"
-                                        options={studies}
-                                        objKey='label'
-                                        value={selectedStudy}
-                                        selected={selectedStudy}
-                                        setSelected={setSelectedStudy}
-                                    />
-                                    <div className="booking__form-datetime">
-                                        {openCalendar ?
-                                            <Calendar
-                                                locale='es-ES'
-                                                onChange={selectDate}
-                                                value={date}
-                                                tileDisabled={tileDisabled}
-                                                className='react-calendar'
-                                            />
-                                            :
-                                            <Button
-                                                label={date ? new Date(date).toLocaleDateString('es-ES') : 'Seleccioná una fecha'}
-                                                handleClick={() => setOpenCalendar(true)}
-                                                bgColor="#6ad1c5"
-                                                textColor="#fff"
-                                            />}
-                                        {date ? timeOptions.length ?
-                                            <Dropdown
-                                                label="Hora"
-                                                options={timeOptions.map(t => t.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }))}
-                                                value={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
-                                                selected={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
-                                                setSelected={selectTime}
-                                            /> :
-                                            <p style={{ color: 'red' }}>No hay horarios disponibles para este día.</p>
-                                            : ''}
-                                    </div>
-                                    <InputField
-                                        name="firstName"
-                                        label="Nombre(s)"
-                                        updateData={updateData}
-                                        placeholder="María Victoria"
-                                        value={data.firstName}
-                                    />
-                                    <InputField
-                                        name="lastName"
-                                        label="Apellido(s)"
-                                        updateData={updateData}
-                                        placeholder="García Lopez"
-                                        value={data.lastName}
-                                    />
-                                    <div className="booking__form-age-container">
-                                        <p className="booking__form-age-title">Fecha de nacimiento</p>
-                                        <div className="booking__form-age">
-                                            <InputField
-                                                name="ageDay"
-                                                label="Día"
-                                                updateData={updateData}
-                                                placeholder="DD"
-                                                type="number"
-                                                style={{ width: '26%' }}
-                                                maxLength={2}
-                                                value={data.ageDay}
-                                            />
-                                            <InputField
-                                                name="ageMonth"
-                                                label="Mes"
-                                                updateData={updateData}
-                                                placeholder="MM"
-                                                type="number"
-                                                style={{ width: '26%' }}
-                                                maxLength={2}
-                                                value={data.ageMonth}
-                                            />
-                                            <InputField
-                                                name="ageYear"
-                                                label="Año"
-                                                updateData={updateData}
-                                                placeholder="AAAA"
-                                                type="number"
-                                                style={{ width: '36%' }}
-                                                maxLength={4}
-                                                value={data.ageYear}
-                                            />
-                                        </div>
-                                    </div>
-                                    <InputField
-                                        name="email"
-                                        label="Email"
-                                        updateData={updateData}
-                                        placeholder="tu@mail.com"
-                                        value={data.email}
-                                    />
-                                    <InputField
-                                        name="phone"
-                                        label="Teléfono de contacto"
-                                        updateData={updateData}
-                                        placeholder="34567891011"
-                                        value={data.phone}
-                                    />
-                                    <div className="booking__form-btns">
-                                        <Button
-                                            label="Descartar cambios"
-                                            handleClick={cancel}
-                                            bgColor="gray"
-                                            textColor="#fff"
-                                        />
-                                        <Button
-                                            label="Guardar cambios"
-                                            handleClick={saveBooking}
-                                            bgColor="#6ad1c5"
-                                            textColor="#fff"
-                                            disabled={!checkData()}
-                                            loading={loading}
-                                        />
-                                    </div>
+                                {newBooking ? '' :
                                     <Button
                                         label="Cancelar y eliminar turno"
-                                        handleClick={() => setRemoveBooking(selected._id || null)}
+                                        handleClick={() => selected ? setRemoveBooking(selected._id || null) : null}
                                         bgColor="#fff"
                                         textColor="#FF0000"
                                         loading={loading}
                                         outline
                                         style={{ marginTop: '1rem' }}
-                                    />
-                                </div>
-                            </Modal>
-                            : ''}
+                                    />}
+                            </div>
+                        </Modal>
+                        : ''}
                 <EventCalendar
                     localizer={localizer}
                     events={getCalendarEvents()}

@@ -3,7 +3,7 @@ import { AppContext } from '../../app/context/AppContext'
 
 type Props = {
     children?: ReactNode
-    onClose?: () => void
+    onClose?: () => void | null
     title?: string | null
     subtitle?: string | null
     style?: React.CSSProperties
@@ -35,13 +35,13 @@ export default function Modal({ children, onClose, title, subtitle, style }: Pro
     return (
         <div className="modal__wrapper">
             <div className={`modal__container ${closeAnimation}`} style={style}>
-                <div className="modal__header">
+                {title || onClose ? <div className="modal__header">
                     <div className="modal__titles">
                         <h1 className="modal__title">{title}</h1>
                         <h2 className="modal__subtitle">{subtitle}</h2>
                     </div>
                     <button className={`modal__close`} onClick={closeModal}>X</button>
-                </div>
+                </div> : ''}
                 <div className="modal__content">
                     {children}
                 </div>

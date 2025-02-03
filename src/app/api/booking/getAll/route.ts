@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
     try {
         await connectToDatabase()
 
-        const bookingsByServiceId = await Booking.find().lean()
+        const bookingsByServiceId = await Booking.find().sort({ createdAt: -1 }).lean()
 
         return NextResponse.json(bookingsByServiceId)
     } catch (err: any) {
