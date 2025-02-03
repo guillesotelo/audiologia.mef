@@ -17,7 +17,7 @@ import { studies } from "src/constants"
 
 type Props = {}
 
-const voidStudy = { value: '', label: '', duration: 0 }
+const voidStudy = { value: '', label: '', duration: 30 }
 const voidData = {
     firstName: '',
     lastName: '',
@@ -29,7 +29,6 @@ const web = `https://audiologia-mef.vercel.app/`
 export default function Turnos({ }: Props) {
     const [data, setData] = useState<dataObj>(voidData)
     const [date, setDate] = useState<Date | null>(null)
-    const [endDate, setEndDate] = useState<any>(null)
     const [timeOptions, setTimeOptions] = useState<Date[]>([])
     const [openCalendar, setOpenCalendar] = useState(false)
     const [selectedStudy, setSelectedStudy] = useState(voidStudy)
@@ -43,7 +42,10 @@ export default function Turnos({ }: Props) {
     useEffect(() => {
         if (data.firstName && data.lastName && (data.phone || data.email) && date) {
             const start = new Date(date).toISOString().replace(/[^\w\s]/gi, '')
-            const end = endDate ? endDate.toISOString().replace(/[^\w\s]/gi, '') : start
+            let end: Date | string = new Date(date)
+            end.setMinutes(end.getMinutes() + selectedStudy.duration || 30)
+            end = end.toISOString().replace(/[^\w\s]/gi, '')
+
             const details = `Audiolog%C3%ADa+MEF+-+${selectedStudy.label}%0D%0A%0D%0AProfesional%3A+Lic.+Mar%C3%ADa+Elisa+Fontana%0D%0ADirecci%C3%B3n%3A+A.+del+Valle+171%2C+Concordia%2C+ER%0D%0ATel%3A+%280345%29+422-2639%0D%0A%0D%0ASi+desea+cancelar+el+turno+o+no+puede+asistir%2C+debe+informarlo+al+menos+24+horas+antes+de+la+hora+de+comienzo.%0D%0A%0D%0AGracias+y+nos+vemos+pronto%21`
 
             setCalendarLink(`https://calendar.google.com/calendar/u/0/r/eventedit?text=${selectedStudy.label.replace(' ', '+')}&details=${details}&dates=${start}/${end}`)
@@ -324,9 +326,9 @@ export default function Turnos({ }: Props) {
                                 </div> : ''}
                         </div>
                     </div>
-                    {checkData() ?
+                    {booked ?
                         <div className="booking__voucher">
-                            {booked ? <p className="booking__voucher-confirmed">Tu turno está confirmado. {data.email ? 'Revisá tu bandeja de entrada para más información.' : ''}</p> : ''}
+                            <p className="booking__voucher-confirmed">Tu turno está confirmado. {data.email ? 'Revisá tu bandeja de entrada para más información.' : ''}</p>
                             <div className="booking__voucher-details">
                                 <h2 style={{ margin: '0 0 1rem' }}>{selectedStudy.label}</h2>
                                 <p className="booking__voucher-text">
@@ -342,17 +344,6 @@ export default function Turnos({ }: Props) {
                                 />
                                 <p style={{ margin: 0 }}>Escaneá el código QR para ver los detalles de tu turno</p>
                             </div>
-                            {!booked ?
-                                <Button
-                                    label="Confirmar turno"
-                                    handleClick={saveBooking}
-                                    bgColor="#6ad1c5"
-                                    textColor="#fff"
-                                    disabled={!checkData()}
-                                    loading={loading}
-                                    style={{ margin: '0 1rem', width: '-webkit-fill-available' }}
-                                />
-                                : ''}
                             <Button
                                 label="Agregar a Google Calendar"
                                 handleClick={openCalendarTab}
@@ -370,7 +361,8 @@ export default function Turnos({ }: Props) {
                                 style={{ margin: '0 1rem 1rem', width: '-webkit-fill-available' }}
                                 outline
                             />
-                        </div> : ''}
+                        </div>
+                        : ''}
                 </div>
             </div>
             <Footer />

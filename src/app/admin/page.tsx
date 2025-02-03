@@ -74,7 +74,11 @@ export default function Turnos({ }: Props) {
         const current: any = selected || newBooking || {}
         if (current) {
             const start = new Date(current.date || new Date()).toISOString().replace(/[^\w\s]/gi, '')
-            const end = current.end ? new Date(current.end).toISOString().replace(/[^\w\s]/gi, '') : start
+            let end: Date | string = new Date(current.end || current.date || date)
+
+            if (!current.end) end.setMinutes(end.getMinutes() + selectedStudy.duration || 30)
+            end = end.toISOString().replace(/[^\w\s]/gi, '')
+
             const details = `Audiolog%C3%ADa+MEF+-+${selectedStudy.label || data.studyName}%0D%0A%0D%0AProfesional%3A+Lic.+Mar%C3%ADa+Elisa+Fontana%0D%0ADirecci%C3%B3n%3A+A.+del+Valle+171%2C+Concordia%2C+ER%0D%0ATel%3A+%280345%29+422-2639%0D%0A%0D%0ASi+desea+cancelar+el+turno+o+no+puede+asistir%2C+debe+informarlo+al+menos+24+horas+antes+de+la+hora+de+comienzo.%0D%0A%0D%0AGracias+y+nos+vemos+pronto%21`
 
             setCalendarLink(`https://calendar.google.com/calendar/u/0/r/eventedit?text=${selectedStudy.label.replace(' ', '+')}&details=${details}&dates=${start}/${end}`)
