@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { dataObj, userType, bookingType } from '../app/types';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://audiologia-mef.vercel.app' : 'http://localhost:3000'
 
 // User
 const loginUser = async (data: userType) => {

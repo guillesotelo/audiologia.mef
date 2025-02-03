@@ -485,7 +485,7 @@ export const newBookingAdmin = (data: dataObj) => `
                                 
                                 <a href=${data.calendarLink} target="_blank"><button class="calendar-button">Agregar turno a Google Calendar</button></a>
                                 
-                                <p style="margin: 2rem 0">Y esta es la información del paciente compartiste:</p>
+                                <p style="margin: 2rem 0">Y esta es la información del paciente:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
                                  <p><strong>Edad: </strong>${data.age || ''}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
