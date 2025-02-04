@@ -5,12 +5,23 @@ import { contactEmail, newBookingClient, newBookingAdmin, cancelBooking } from "
 const sendEmail = async (to: string, subject: string, html: string) => {
     try {
         const transporter = await transporterPromise
-        await transporter.sendMail({
-            from: `"Audiología MEF" <${process.env.EMAIL}>`,
-            to,
-            subject,
-            html,
-        });
+
+        await new Promise((resolve, reject) => {
+            transporter.sendMail({
+                from: `"Audiología MEF" <${process.env.EMAIL}>`,
+                to,
+                subject,
+                html,
+            }, (err: any, info: any) => {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                } else {
+                    console.log(info);
+                    resolve(info);
+                }
+            })
+        })
     } catch (err) {
         console.error("Error sending email:", err);
     }
