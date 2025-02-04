@@ -156,18 +156,13 @@ const Home = () => {
             <p className="home__studies-item-text">Audiometría Tonal</p>
             <div className="home__studies-item-underline" />
           </div>
-          {/* <div className="home__studies-item">
-              <img src="/assets/icons/speaking.svg" alt="" className="home__studies-item-image" />
-              <p className="home__studies-item-text">Audiometría Vocal</p>
-              <div className="home__studies-item-underline" />
-            </div> */}
           <div className="home__studies-item">
             <img src="/assets/icons/voice.svg" alt="" className="home__studies-item-image" />
             <p className="home__studies-item-text">Logoaudiometría</p>
             <div className="home__studies-item-underline" />
           </div>
           <div className="home__studies-item">
-            <img src="/assets/icons/voice.svg" alt="" className="home__studies-item-image" />
+            <img src="/assets/icons/ear.svg" alt="" className="home__studies-item-image" />
             <p className="home__studies-item-text">Otoemisiones Acústicas</p>
             <div className="home__studies-item-underline" />
           </div>
@@ -177,7 +172,7 @@ const Home = () => {
             <div className="home__studies-item-underline" />
           </div>
           <div className="home__studies-item">
-            <img src="/assets/icons/baby.svg" alt="" className="home__studies-item-image" />
+            <img src="/assets/icons/chart.svg" alt="" className="home__studies-item-image" />
             <p className="home__studies-item-text">Potencial Evocado</p>
             <div className="home__studies-item-underline" />
           </div>
@@ -248,6 +243,17 @@ const Home = () => {
                 </p>
               </div>
             </div>
+            <div className="home__studies-info-card" onClick={() => router.push('/estudios/otoemisiones-acusticas')}>
+              <div className="home__studies-info-card-image">
+                <img src="/assets/icons/ear.svg" alt="" className="home__studies-info-image" />
+              </div>
+              <div className="home__studies-info-card-text">
+                <h3 className="home__studies-info-card-title">Otoemisiones Acústicas</h3>
+                <p className="home__studies-info-card-description">
+                  Las otoemisiones acústicas, son pruebas diagnósticas que evalúan el estado auditivo del paciente. Estas emisiones son sonidos generados en la cóclea debido a la actividad de las células ciliadas del órgano de Corti.
+                </p>
+              </div>
+            </div>
             <div className="home__studies-info-card" onClick={() => router.push('/estudios/impedanciometria')}>
               <div className="home__studies-info-card-image">
                 <img src="/assets/icons/wind.svg" alt="" className="home__studies-info-image" />
@@ -261,7 +267,7 @@ const Home = () => {
             </div>
             <div className="home__studies-info-card" onClick={() => router.push('/estudios/potencial-evocado')}>
               <div className="home__studies-info-card-image">
-                <img src="/assets/icons/baby.svg" alt="" className="home__studies-info-image" />
+                <img src="/assets/icons/chart.svg" alt="" className="home__studies-info-image" />
               </div>
               <div className="home__studies-info-card-text">
                 <h3 className="home__studies-info-card-title">Potencial Evocado</h3>
@@ -369,7 +375,7 @@ const Home = () => {
             />
           </div>
         </div>
-      </div>
+      </div >
       <Footer />
     </>
   )
