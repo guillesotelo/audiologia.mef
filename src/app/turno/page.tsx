@@ -31,7 +31,7 @@ export default function Turno() {
             setLoading(true)
             const found = await getBookingById(id)
             if (found && found._id) {
-                const cancellable = new Date().getTime() - new Date(found.date).getTime() > 864000000
+                const cancellable = new Date(found.date).getTime() - new Date().getTime() > 864000000
                 setBooking({ ...found, cancellable })
             }
             setLoading(false)

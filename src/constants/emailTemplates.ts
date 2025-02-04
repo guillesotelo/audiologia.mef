@@ -300,7 +300,7 @@ export const newBookingClient = (data: dataObj) => `
                         <td>
                             <div  class="article" style="border: none;">
                                 <h1>${data.isUpdate ? 'Tu turno ha sido modificado' : '¡Turno confirmado!'}</h1>
-                                <p  style="margin-bottom: 2rem">Estos son los nuevos detalles:</p>
+                                <p  style="margin-bottom: 2rem">${data.isUpdate ? 'Estos son los nuevos detalles' : 'Estos son los detalles'}:</p>
                                 <p><strong>Estudio: </strong>${data.studyName || ''}</p>
                                 <p><strong>Fecha y hora: </strong>${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</p>
                                 <p><strong>Profesional: </strong>${data.professional || 'Lic. María Elisa Fontana'}</p>
@@ -481,7 +481,7 @@ export const newBookingAdmin = (data: dataObj) => `
                         <td>
                             <div  class="article" style="border: none;">
                                 <h1>${data.isUpdate ? 'Turno modificado' : '¡Nuevo turno confirmado!'}</h1>
-                                <p  style="margin-bottom: 2rem">Estos son los nuevos detalles:</p>
+                                <p  style="margin-bottom: 2rem">${data.isUpdate ? 'Estos son los nuevos detalles' : 'Estos son los detalles'}:</p>
                                 <p><strong>Estudio: </strong>${data.studyName || ''}</p>
                                 <p><strong>Fecha y hora: </strong>${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</p>
                                 <p><strong>Profesional: </strong>${data.professional || 'Lic. María Elisa Fontana'}</p>

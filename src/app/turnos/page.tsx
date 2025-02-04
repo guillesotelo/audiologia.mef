@@ -97,13 +97,8 @@ export default function Turnos({ }: Props) {
         }
     }
 
-    const updateData = (key: string, e: any, max?: number) => {
-        let { value } = e.target
-        const isNumber = typeof value === 'number'
-        if (max && String(value).length > max) {
-            value = isNumber ? Number(String(value).slice(0, max)) : value.slice(0, max)
-        }
-
+    const updateData = (key: string, e: any) => {
+        const { value } = e.target
         setData(prev => ({ ...prev, [key]: value }))
     }
 
@@ -128,7 +123,7 @@ export default function Turnos({ }: Props) {
                 date,
                 calendarLink,
                 qr,
-                age: new Date(`${parseDoB(data.ageYear)}-${parseDoB(data.ageMonth)}-${parseDoB(data.ageDay)}`)
+                age: `${parseDoB(data.ageYear)}-${parseDoB(data.ageMonth)}-${parseDoB(data.ageDay)}`
             }
             const booked = await createOrUpdateBooking(bookingData)
             if (booked && booked._id) {
@@ -193,6 +188,12 @@ export default function Turnos({ }: Props) {
         const a = document.createElement('a')
         a.href = window.location.href
         a.click()
+    }
+
+    const getYearArray = () => {
+        return Array.from({ length: 130 }).map((_, i) => {
+            return new Date().getFullYear() - i
+        })
     }
 
     return (
@@ -261,35 +262,29 @@ export default function Turnos({ }: Props) {
                                 <div className="booking__form-age-container">
                                     <p className="booking__form-age-title">Fecha de nacimiento</p>
                                     <div className="booking__form-age">
-                                        <InputField
-                                            name="ageDay"
+                                        <Dropdown
                                             label="Día"
-                                            updateData={updateData}
-                                            placeholder="DD"
-                                            type="number"
-                                            style={{ width: '26%' }}
-                                            maxLength={2}
                                             value={data.ageDay}
+                                            selected={data.ageDay}
+                                            options={Array.from({ length: 31 }).map((_, i) => i + 1)}
+                                            setSelected={value => updateData('ageDay', { target: { value } })}
+                                            style={{ width: '30%' }}
                                         />
-                                        <InputField
-                                            name="ageMonth"
+                                        <Dropdown
                                             label="Mes"
-                                            updateData={updateData}
-                                            placeholder="MM"
-                                            type="number"
-                                            style={{ width: '26%' }}
-                                            maxLength={2}
                                             value={data.ageMonth}
+                                            selected={data.ageMonth}
+                                            options={Array.from({ length: 12 }).map((_, i) => i + 1)}
+                                            setSelected={value => updateData('ageMonth', { target: { value } })}
+                                            style={{ width: '30%' }}
                                         />
-                                        <InputField
-                                            name="ageYear"
+                                        <Dropdown
                                             label="Año"
-                                            updateData={updateData}
-                                            placeholder="AAAA"
-                                            type="number"
-                                            style={{ width: '36%' }}
-                                            maxLength={4}
                                             value={data.ageYear}
+                                            selected={data.ageYear}
+                                            options={getYearArray()}
+                                            setSelected={value => updateData('ageYear', { target: { value } })}
+                                            style={{ width: '30%' }}
                                         />
                                     </div>
                                 </div>
