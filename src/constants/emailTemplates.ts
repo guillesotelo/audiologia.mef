@@ -299,15 +299,15 @@ export const newBookingClient = (data: dataObj) => `
                     <tr>
                         <td>
                             <div  class="article" style="border: none;">
-                                <h1>¡Turno confirmado!</h1>
-                                <p  style="margin-bottom: 2rem">Estos son los detalles:</p>
+                                <h1>${data.isUpdate ? 'Tu turno ha sido modificado' : '¡Turno confirmado!'}</h1>
+                                <p  style="margin-bottom: 2rem">Estos son los nuevos detalles:</p>
                                 <p><strong>Estudio: </strong>${data.studyName || ''}</p>
                                 <p><strong>Fecha y hora: </strong>${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</p>
                                 <p><strong>Profesional: </strong>${data.professional || 'Lic. María Elisa Fontana'}</p>
                                 
                                 <a href=${data.calendarLink} target="_blank"><button class="calendar-button">Agregar turno a Google Calendar</button></a>
                                 
-                                <p style="margin: 2rem 0">Y esta es la información que nos compartiste:</p>
+                                <p style="margin: 2rem 0">Y esta es la información del paciente:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
                                  <p><strong>Fecha de nacimiento: </strong>${data.age ? new Date(data.age).toLocaleDateString('es-ES') : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
@@ -480,8 +480,8 @@ export const newBookingAdmin = (data: dataObj) => `
                     <tr>
                         <td>
                             <div  class="article" style="border: none;">
-                                <h1>¡Nuevo turno confirmado!</h1>
-                                <p  style="margin-bottom: 2rem">Estos son los detalles:</p>
+                                <h1>${data.isUpdate ? 'Turno modificado' : '¡Nuevo turno confirmado!'}</h1>
+                                <p  style="margin-bottom: 2rem">Estos son los nuevos detalles:</p>
                                 <p><strong>Estudio: </strong>${data.studyName || ''}</p>
                                 <p><strong>Fecha y hora: </strong>${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</p>
                                 <p><strong>Profesional: </strong>${data.professional || 'Lic. María Elisa Fontana'}</p>

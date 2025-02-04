@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
             // Fire-and-forget email sending (doesn't block response)
             setTimeout(() => {
                 Promise.allSettled([
-                    sendNewBookingAdmin(newBooking),
-                    sendNewBookingClient(newBooking)
+                    sendNewBookingAdmin({ ...newBooking, isUpdate: bookingData._id }),
+                    sendNewBookingClient({ ...newBooking, isUpdate: bookingData._id })
                 ]).then(results => {
                     results.forEach((result, index) => {
                         if (result.status === "rejected") {
