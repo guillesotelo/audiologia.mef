@@ -309,7 +309,7 @@ export const newBookingClient = (data: dataObj) => `
                                 
                                 <p style="margin: 2rem 0">Y esta es la información que nos compartiste:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Fecha de nacimiento: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString() : 'no registrado'}</p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString('es-ES') : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
                                  <p style="font-size: 1rem; margin-top: 4rem;">Recordá que para cancelar o cambiar el turno, debés comunicarte con nosotros con al menos 24 horas de antelación.<br/>Si hay modificaciones en tu turno, nos comunicaremos a traves de los medios compartidos.</p>
@@ -489,7 +489,7 @@ export const newBookingAdmin = (data: dataObj) => `
                                 
                                 <p style="margin: 2rem 0">Y esta es la información del paciente:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Fecha de nacimiento: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString() : 'no registrado'}</p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString('es-ES') : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
                             </div>

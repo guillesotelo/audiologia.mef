@@ -361,9 +361,9 @@ export default function Turnos({ }: Props) {
                                     {date ? timeOptions.length ?
                                         <Dropdown
                                             label="Hora"
-                                            options={timeOptions.map(t => t.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }))}
-                                            value={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
-                                            selected={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
+                                            options={timeOptions.map(t => t.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }))}
+                                            value={date.getHours() !== 0 ? date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : null}
+                                            selected={date.getHours() !== 0 ? date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : null}
                                             setSelected={selectTime}
                                         /> :
                                         <p style={{ color: 'red' }}>No hay horarios disponibles para este día.</p>

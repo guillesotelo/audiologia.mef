@@ -85,7 +85,7 @@ export default function Dropdown(props: Props) {
 
     const getSelectValue = () => {
         if (value && typeof value === 'string' || typeof value === 'number') {
-            if (isDate) return value ? new Date(value).toLocaleDateString(locale || 'sv-SE') : 'Seleccionar'
+            if (isDate) return value ? new Date(value).toLocaleDateString(locale || 'es-ES') : 'Seleccionar'
             if (isTime) return new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             else return value
         }
@@ -166,7 +166,7 @@ export default function Dropdown(props: Props) {
                             else setSelected(option)
                             setOpenDrop(false)
                         }}>
-                        {isDate ? new Date(option).toLocaleDateString(locale || 'sv-SE') :
+                        {isDate ? new Date(option).toLocaleDateString(locale || 'es-ES') :
                             isTime ? new Date(option).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) :
                                 objKey ? option[objKey] : option}
                     </h4>)

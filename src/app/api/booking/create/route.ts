@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
                         console.error(`Email #${index + 1} failed:`, result.reason)
                     }
                 })
-            })
+            }).catch(err => console.error("Promise.allSettled failed:", err))
         }
 
         return NextResponse.json(newBooking)

@@ -233,9 +233,9 @@ export default function Turnos({ }: Props) {
                                     {date ? timeOptions.length ?
                                         <Dropdown
                                             label="Hora"
-                                            options={timeOptions.map(t => t.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }))}
-                                            value={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
-                                            selected={date.getHours() !== 0 ? date.toLocaleTimeString('ES-es', { hour: '2-digit', minute: '2-digit' }) : null}
+                                            options={timeOptions.map(t => t.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }))}
+                                            value={date.getHours() !== 0 ? date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : null}
+                                            selected={date.getHours() !== 0 ? date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : null}
                                             setSelected={selectTime}
                                         /> :
                                         slotsLoading ? <p>Cargando horarios...</p>
@@ -328,11 +328,11 @@ export default function Turnos({ }: Props) {
                     </div>
                     {booked ?
                         <div className="booking__voucher">
-                            <p className="booking__voucher-confirmed">Tu turno está confirmado. {data.email ? 'Revisá tu bandeja de entrada para más información.' : ''}</p>
+                            <p className="booking__voucher-confirmed">Tu turno está confirmado. {data.email ? 'Pronto estaremos enviando un correo electrónico con toda la información.' : ''}</p>
                             <div className="booking__voucher-details">
                                 <h2 style={{ margin: '0 0 1rem' }}>{selectedStudy.label}</h2>
                                 <p className="booking__voucher-text">
-                                    <strong>Cuándo: </strong>{date?.toLocaleDateString('es-AR')}, {date?.toLocaleTimeString().substr(0, 5)}
+                                    <strong>Cuándo: </strong>{date?.toLocaleDateString('es-ES')}, {date?.toLocaleTimeString().substr(0, 5)}
                                 </p>
                                 <p className="booking__voucher-text">
                                     <strong>Dónde: </strong> <a href="https://maps.app.goo.gl/tSx7kDDXE993Gvyh6" target="_blank">Aristóbulo del Valle 171, Concordia, ER</a>

@@ -1,7 +1,1 @@
-{
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/turnos/page": "app/turnos/page.js",
-  "/api/user/verify/route": "app/api/user/verify/route.js",
-  "/api/booking/create/route": "app/api/booking/create/route.js",
-  "/api/booking/getAll/route": "app/api/booking/getAll/route.js"
-}
+{}
