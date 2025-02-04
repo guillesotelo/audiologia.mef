@@ -59,8 +59,9 @@ export default function Turnos({ }: Props) {
 
     useEffect(() => {
 
+        const current: any = selected || newBooking || {}
         // We do this to reset the time selected
-        if (date && date.getHours() === 0) {
+        if (current.studyId && selectedStudy.value !== current.studyId || (date && date.getHours() === 0)) {
             const newDate = new Date(date)
             newDate.setHours(0)
             newDate.setMinutes(0)
@@ -87,6 +88,7 @@ export default function Turnos({ }: Props) {
 
         setData(current)
         setDate(new Date(current.date || new Date()))
+        if (current.studyId) setSelectedStudy(studies.find(s => s.value === current.studyId))
     }, [newBooking, selected])
 
     useEffect(() => {
