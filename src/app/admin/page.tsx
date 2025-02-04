@@ -130,7 +130,7 @@ export default function Turnos({ }: Props) {
                 date,
                 calendarLink,
                 qr,
-                age: new Date(`${data.ageYear}-${data.ageMonth}-${data.ageDay}`)
+                age: new Date(`${parseDoB(data.ageYear)}-${parseDoB(data.ageMonth)}-${parseDoB(data.ageDay)}`)
             }
             const booked = await createOrUpdateBooking(bookingData)
             if (booked && booked._id) toast.success('¡Turno guardado!')
@@ -142,6 +142,10 @@ export default function Turnos({ }: Props) {
             toast.error('Ocurrió un error al guardar. Por favor intenta nuevamente.')
             setLoading(false)
         }
+    }
+
+    const parseDoB = (n: number | string) => {
+        return String(n).length === 1 ? `0${n}` : n
     }
 
     const getAllBookings = async () => {
@@ -241,16 +245,6 @@ export default function Turnos({ }: Props) {
             value = isNumber ? Number(String(value).slice(0, max)) : value.slice(0, max)
         }
 
-        const ageKeys = ['ageDay', 'ageMonth', 'ageYear']
-        if (value !== '' && ageKeys.includes(key) && value.length > 1) {
-            value = Number(value) > 0 ? value : '01'
-        } if (key === 'ageDay' && value.length > 1) {
-            value = Number(value) > 31 ? 31 : value
-        } else if (key === 'ageMonth' && value.length > 1) {
-            value = Number(value) > 12 ? 12 : value
-        } else if (key === 'ageYear' && value.length > 1) {
-            value = Number(value) > new Date().getFullYear() ? new Date().getFullYear() : value
-        }
         setData(prev => ({ ...prev, [key]: value }))
     }
 

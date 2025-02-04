@@ -24,7 +24,7 @@ const voidData = {
     email: '',
     phone: '',
 }
-const web = `https://audiologia-mef.vercel.app/`
+const web = process.env.NODE_ENV === 'production' ? `https://audiologia-mef.vercel.app/` : 'http://localhost:3000/'
 
 export default function Turnos({ }: Props) {
     const [data, setData] = useState<dataObj>(voidData)
@@ -49,8 +49,7 @@ export default function Turnos({ }: Props) {
             const details = `Audiolog%C3%ADa+MEF+-+${selectedStudy.label}%0D%0A%0D%0AProfesional%3A+Lic.+Mar%C3%ADa+Elisa+Fontana%0D%0ADirecci%C3%B3n%3A+A.+del+Valle+171%2C+Concordia%2C+ER%0D%0ATel%3A+%280345%29+422-2639%0D%0A%0D%0ASi+desea+cancelar+el+turno+o+no+puede+asistir%2C+debe+informarlo+al+menos+24+horas+antes+de+la+hora+de+comienzo.%0D%0A%0D%0AGracias+y+nos+vemos+pronto%21`
 
             setCalendarLink(`https://calendar.google.com/calendar/u/0/r/eventedit?text=${selectedStudy.label.replace(' ', '+')}&details=${details}&dates=${start}/${end}`)
-            setQr(`${web}turno?name=${data.firstName}&lastName=${data.lastName}&phone=${data.phone}&email=${data.email}&date=${new Date(date).getTime()}`)
-        } else setQr('')
+        }
     }, [data, date])
 
     useEffect(() => {
@@ -105,10 +104,6 @@ export default function Turnos({ }: Props) {
             value = isNumber ? Number(String(value).slice(0, max)) : value.slice(0, max)
         }
 
-        const ageKeys = ['ageDay', 'ageMonth', 'ageYear']
-        if (ageKeys.includes(key)) {
-            value = Number(value) > 0 ? value : 1
-        }
         setData(prev => ({ ...prev, [key]: value }))
     }
 
@@ -117,6 +112,10 @@ export default function Turnos({ }: Props) {
         setDate(null)
         setBooked(false)
         setSelectedStudy(voidStudy)
+    }
+
+    const parseDoB = (n: number | string) => {
+        return String(n).length === 1 ? `0${n}` : n
     }
 
     const saveBooking = async () => {
@@ -129,11 +128,12 @@ export default function Turnos({ }: Props) {
                 date,
                 calendarLink,
                 qr,
-                age: new Date(`${data.ageYear}-${data.ageMonth}-${data.ageDay}`)
+                age: new Date(`${parseDoB(data.ageYear)}-${parseDoB(data.ageMonth)}-${parseDoB(data.ageDay)}`)
             }
             const booked = await createOrUpdateBooking(bookingData)
             if (booked && booked._id) {
                 toast.success('¡Turno confirmado!')
+                setQr(`${web}/turno?id=${booked._id}`)
                 setBooked(true)
             } else {
                 toast.error('Ocurrió un error al guardar. Por favor intenta nuevamente.')
@@ -332,7 +332,7 @@ export default function Turnos({ }: Props) {
                             <div className="booking__voucher-details">
                                 <h2 style={{ margin: '0 0 1rem' }}>{selectedStudy.label}</h2>
                                 <p className="booking__voucher-text">
-                                    <strong>Cuándo: </strong>{date?.toLocaleDateString('es-ES')}, {date?.toLocaleTimeString().substr(0, 5)}
+                                    <strong>Cuándo: </strong>{date ? getDate(date) : 'no registrado'}
                                 </p>
                                 <p className="booking__voucher-text">
                                     <strong>Dónde: </strong> <a href="https://maps.app.goo.gl/tSx7kDDXE993Gvyh6" target="_blank">Aristóbulo del Valle 171, Concordia, ER</a>
