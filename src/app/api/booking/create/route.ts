@@ -22,18 +22,8 @@ export async function POST(request: NextRequest) {
         if (newBooking && newBooking._id) {
             // Fire-and-forget email sending (doesn't block response)
             newBooking.isUpdate = bookingData._id || null
-            setTimeout(() => {
-                Promise.allSettled([
-                    sendNewBookingAdmin(newBooking),
-                    sendNewBookingClient(newBooking)
-                ]).then(results => {
-                    results.forEach((result, index) => {
-                        if (result.status === "rejected") {
-                            console.error(`Email #${index + 1} failed:`, result.reason)
-                        }
-                    })
-                }).catch(err => console.error("Promise.allSettled failed:", err))
-            }, 0)
+            await sendNewBookingAdmin(newBooking)
+            await sendNewBookingClient(newBooking)
         }
 
         return NextResponse.json(newBooking)
