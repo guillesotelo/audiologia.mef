@@ -220,7 +220,7 @@ export const newBookingClient = (data: dataObj) => `
         }
 
         .info {
-            padding: 20px;
+            padding: 0 20px;
         }
 
         .info-separator {
@@ -229,6 +229,7 @@ export const newBookingClient = (data: dataObj) => `
 
         .goodby {
             margin: 50px 0;
+            color: #666;
         }
 
         .article {
@@ -308,10 +309,10 @@ export const newBookingClient = (data: dataObj) => `
                                 
                                 <p style="margin: 2rem 0">Y esta es la información que nos compartiste:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Edad: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString() : 'no registrado'}</p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString() : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
-                                 <p>Recordá que para cancelar o cambiar el turno, debés comunicarte con nosotros con al menos 24 horas de antelación.<br/>Si hay modificaciones en tu turno, nos comunicaremos a traves de los medios compartidos.</p>
+                                 <p style="font-size: 1rem; margin-top: 4rem;">Recordá que para cancelar o cambiar el turno, debés comunicarte con nosotros con al menos 24 horas de antelación.<br/>Si hay modificaciones en tu turno, nos comunicaremos a traves de los medios compartidos.</p>
                             </div>
                             <div class="info">
                                 <div class="goodby">
@@ -399,7 +400,7 @@ export const newBookingAdmin = (data: dataObj) => `
         }
 
         .info {
-            padding: 20px;
+            padding: 0 20px;
         }
 
         .info-separator {
@@ -408,6 +409,7 @@ export const newBookingAdmin = (data: dataObj) => `
 
         .goodby {
             margin: 50px 0;
+            color: #666;
         }
 
         .article {
@@ -487,10 +489,9 @@ export const newBookingAdmin = (data: dataObj) => `
                                 
                                 <p style="margin: 2rem 0">Y esta es la información del paciente:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Edad: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString() : 'no registrado'}</p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.ageYear && data.ageMonth && data.ageDay ? new Date(data.ageYear, data.ageMonth, data.ageDay).toLocaleDateString() : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
-                                 <p>Recordá que para cancelar o cambiar el turno, debés comunicarte con nosotros con al menos 24 horas de antelación.<br/>Si hay modificaciones en tu turno, nos comunicaremos a traves de los medios compartidos.</p>
                             </div>
                             <div class="info">
                                 <div class="goodby">

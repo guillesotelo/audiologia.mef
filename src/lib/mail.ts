@@ -6,15 +6,16 @@ dotenv.config();
 console.log("Initializing Nodemailer...");
 
 export const transporter = nodemailer.createTransport({
+    service: 'gmail',
     host: "smtp.gmail.com",
     port: 465,
-    secure: true,
+    secure: true, // true for 465
     auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS,
     },
-    debug: true,
-    logger: true,
+    // debug: true,
+    // logger: true,
 });
 
 // Verify transporter immediately at server start
