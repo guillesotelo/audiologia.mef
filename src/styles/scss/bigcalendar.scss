@@ -73,7 +73,8 @@ tr:nth-child(even) {
     }
 }
 
-.rbc-event, .rbc-day-slot .rbc-background-event {
+.rbc-event,
+.rbc-day-slot .rbc-background-event {
     border: 1px solid #0099ff !important;
 }
 
@@ -87,16 +88,21 @@ tr:nth-child(even) {
 }
 
 .rbc-today {
-    background-color: unset !important;
+    background-color: #00968829 !important;
 }
 
-.rbc-current button {
-    background-color: #ffd68a !important;
-    padding: 2px;
-    // color: white !important;
-    border-radius: 50%;
+.rbc-date-cell {
+    border-top: 3px solid transparent !important;
+}
+
+.rbc-current {
+    border-top: 3px solid #0037966a !important;
 }
 
 .rbc-header {
     background: #ffd68a46 !important;
+}
+
+.rbc-day-bg-blocked {
+    background: gray !important;
 }

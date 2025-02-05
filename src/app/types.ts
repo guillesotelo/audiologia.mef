@@ -33,6 +33,9 @@ export type bookingType = {
     qr?: string
     duration?: number
     title?: string
+    notes?: string
+    isPaid?: boolean
+    price?: number
     otherData?: { [key: string]: string } | string
     createdAt?: Date | number | string
     updatedAt?: Date | number | string

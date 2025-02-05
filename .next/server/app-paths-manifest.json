@@ -1,6 +1,13 @@
 {
+<<<<<<< HEAD
   "/_not-found/page": "app/_not-found/page.js",
   "/api/user/verify/route": "app/api/user/verify/route.js",
   "/page": "app/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
+=======
+  "/admin/page": "app/admin/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/api/user/verify/route": "app/api/user/verify/route.js"
+>>>>>>> 9d0d69586c2566159e86f46c3598e5c1d873f594
 }

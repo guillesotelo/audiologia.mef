@@ -12,6 +12,7 @@ const bookingSchema = new mongoose.Schema(
         qr: { type: String },
         studyId: { type: String, required: true },
         studyName: { type: String, required: true },
+        notes: { type: String },
         otherData: { type: String },
     },
     { timestamps: true, strict: false }

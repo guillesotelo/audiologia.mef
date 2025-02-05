@@ -315,3 +315,9 @@ export const createSlug = (word: string) => {
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
 }
+
+export const getYearArray = () => {
+    return Array.from({ length: 130 }).map((_, i) => {
+        return new Date().getFullYear() - i
+    })
+}
