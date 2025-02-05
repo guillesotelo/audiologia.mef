@@ -8,12 +8,13 @@ export async function POST(request: Request) {
     try {
         const { email, password } = await request.json()
 
-        const user = await User.findOne({ email })
+        const adminEmail = process.env.MEF_USERNAME
+        const adminPass = process.env.MEF_PASSWORD
 
-        if (!user || !bcrypt.compareSync(password, user.password)) {
+        if (!email || !password || email !== adminEmail || password !== adminPass) {
             return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
         }
-        const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "1h" })
+        const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "30D" })
 
         // Create the Set-Cookie header manually
         const response = NextResponse.json({ token })

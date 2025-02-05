@@ -11,6 +11,12 @@ export const getDate = (dateString: Date | number | string | undefined, time: bo
     }
 }
 
+export const getAge = (date: Date | string | number) => {
+    const today = new Date()
+    const age = today.getFullYear() - new Date(date).getFullYear()
+    return age === 0 ? `${today.getMonth() - new Date(date).getMonth()} meses` : `${age} años`
+}
+
 export const chunkArray = (arr: any[], chunkSize: number) => {
     const result = []
     for (let i = 0; i < arr.length; i += chunkSize) {

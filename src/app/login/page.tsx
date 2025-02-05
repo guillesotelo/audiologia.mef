@@ -29,13 +29,13 @@ export default function Login({ }: Props) {
         const loading = toast.loading('Logging in...')
         const logged = await loginUser(data)
         if (logged) {
-            toast.success(`Welcome, ${logged.username.split(' ')[0]!}`)
+            toast.success(`¡Bienvenida, Marisa!`)
             setIsLoggedIn(true)
             localStorage.setItem('user', JSON.stringify({
                 ...logged,
                 login: new Date()
             }))
-            setTimeout(() => router.push('/editor'), 1500)
+            setTimeout(() => router.push('/admin'), 1500)
         } else toast.error('Error logging in, try again later')
         setLoading(false)
         return toast.remove(loading)

@@ -1,4 +1,5 @@
 import { dataObj } from "src/app/types";
+import { getAge } from '../helpers'
 
 export const contactEmail = (data: dataObj) => `
 <!DOCTYPE html>
@@ -215,7 +216,7 @@ export const newBookingClient = (data: dataObj) => `
             color: #333;
             padding: 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 1rem;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
         }
@@ -231,6 +232,7 @@ export const newBookingClient = (data: dataObj) => `
         .goodby {
             margin: 50px 0;
             color: #666;
+            font-size: 1rem;
         }
 
         .article {
@@ -311,7 +313,7 @@ export const newBookingClient = (data: dataObj) => `
                                 
                                 <p style="margin: 2rem 0">Y esta es la información personal:</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Fecha de nacimiento: </strong>${data.age ? new Date(data.age).toLocaleDateString('es-ES') : 'no registrado'}</p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.age ? `${new Date(data.age).toLocaleDateString('es-ES')}` + `(${getAge(data.age)})` : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
                                  <p style="font-size: 1rem; margin-top: 4rem;">Recordá que para cancelar o cambiar el turno, debés comunicarte con nosotros con al menos 24 horas de antelación.<br/>Si hay modificaciones en tu turno, nos comunicaremos a traves de los medios compartidos.<br/>Cancelá tu turno <a href="https://audiologia-mef.vercel.app/turno?id=${data._id}">haciendo click acá</a>.</p>
@@ -397,7 +399,7 @@ export const newBookingAdmin = (data: dataObj) => `
             color: #333;
             padding: 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 1rem;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
         }
@@ -413,6 +415,7 @@ export const newBookingAdmin = (data: dataObj) => `
         .goodby {
             margin: 50px 0;
             color: #666;
+            font-size: 1rem;
         }
 
         .article {
@@ -485,15 +488,15 @@ export const newBookingAdmin = (data: dataObj) => `
                                 <h1>Hola Marisa,</h1>
                                 <h2>${data.isUpdate ? 'Se modificó un turno.' : '¡Nuevo turno confirmado!'}</h2>
                                 <p style="margin-bottom: 2rem">${data.isUpdate ? 'Estos son los nuevos detalles' : 'Estos son los detalles'}:</p>
-                                <p><strong>Estudio: </strong>${data.studyName || ''}</p>
-                                <p><strong>Fecha y hora: </strong>${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</p>
+                                <p><strong>Estudio: </strong><span color="color: #c58000;">${data.studyName || ''}</span></p>
+                                <p><strong>Fecha y hora: </strong><span color="color: #c58000;">${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</span></p>
                                 <p><strong>Profesional: </strong>${data.professional || 'Lic. María Elisa Fontana'}</p>
                                 
                                 <a href=${data.calendarLink} target="_blank"><button class="calendar-button">Agregar turno a Google Calendar</button></a>
                                 
                                 <p style="margin: 2rem 0">Y esta es la información del paciente:</p>
-                                 <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Fecha de nacimiento: </strong>${data.age ? new Date(data.age).toLocaleDateString('es-ES') : 'no registrado'}</p>
+                                 <p><strong>Nombre completo: </strong><span color="color: #c58000;">${data.firstName || ''} ${data.lastName || ''}</span></p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.age ? `${new Date(data.age).toLocaleDateString('es-ES')}` + `(${getAge(data.age)})` : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
                             </div>
@@ -578,7 +581,7 @@ export const cancelBooking = (data: dataObj) => `
             color: #333;
             padding: 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 1rem;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
         }
@@ -594,6 +597,7 @@ export const cancelBooking = (data: dataObj) => `
         .goodby {
             margin: 50px 0;
             color: #666;
+            font-size: 1rem;
         }
 
         .article {
@@ -670,7 +674,7 @@ export const cancelBooking = (data: dataObj) => `
                                 <p><strong>Fecha y hora: </strong><del>${new Date(data.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</del></p>
                                 <p><strong>Profesional: </strong>${data.professional || 'Lic. María Elisa Fontana'}</p>
                                  <p><strong>Nombre completo: </strong>${data.firstName || ''} ${data.lastName || ''}</p>
-                                 <p><strong>Fecha de nacimiento: </strong>${data.age ? new Date(data.age).toLocaleDateString('es-ES') : 'no registrado'}</p>
+                                 <p><strong>Fecha de nacimiento: </strong>${data.age ? `${new Date(data.age).toLocaleDateString('es-ES')}` + `(${getAge(data.age)})` : 'no registrado'}</p>
                                  <p><strong>Email: </strong>${data.email || 'no registrado'}</p>
                                  <p><strong>Teléfono: </strong>${data.phone || 'no registrado'}</p>
                                  
