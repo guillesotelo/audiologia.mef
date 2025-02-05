@@ -233,11 +233,10 @@
         &-square {
             position: absolute;
             width: 23rem;
-            height: 12rem;
+            height: 13rem;
             border: 8px dotted #2fc4b2;
             border-radius: 4rem 6rem 4rem 6rem;
-            transform: translate(-21px, -224px);
-            z-index: -1;
+            transform: translate(-21px, -264px);
         }
     }
 
@@ -366,8 +365,16 @@
             }
         }
 
-        &__side-image-container {
-            height: 100%;
+        &__side-image {
+            &-container {
+                height: 100%;
+            }
+
+            &-square {
+                width: 16rem;
+                height: 9rem;
+                transform: translate(-7px, -187px);
+            }
         }
 
         &__studies {

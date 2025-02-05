@@ -19,6 +19,7 @@ type Props = {
     loading?: boolean
     bgColor?: string
     color?: string
+    placeholder?: string
 }
 
 export default function Dropdown(props: Props) {
@@ -43,7 +44,8 @@ export default function Dropdown(props: Props) {
         multiselect,
         loading,
         bgColor,
-        color
+        color,
+        placeholder
     } = props
 
     useEffect(() => {
@@ -85,11 +87,11 @@ export default function Dropdown(props: Props) {
 
     const getSelectValue = () => {
         if (value && typeof value === 'string' || typeof value === 'number') {
-            if (isDate) return value ? new Date(value).toLocaleDateString(locale || 'es-ES') : 'Seleccionar'
+            if (isDate) return value ? new Date(value).toLocaleDateString(locale || 'es-ES') : placeholder || ''
             if (isTime) return new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             else return value
         }
-        return objKey && selected && selected[objKey] ? selected[objKey] : 'Seleccionar'
+        return objKey && selected && selected[objKey] ? selected[objKey] : placeholder || ''
     }
 
     const renderSelectedItem = () => {

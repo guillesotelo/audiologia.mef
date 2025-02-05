@@ -269,6 +269,7 @@ export default function Turnos({ }: Props) {
                                             options={Array.from({ length: 31 }).map((_, i) => i + 1)}
                                             setSelected={value => updateData('ageDay', { target: { value } })}
                                             style={{ width: '30%' }}
+                                            placeholder="DD"
                                         />
                                         <Dropdown
                                             label="Mes"
@@ -277,6 +278,7 @@ export default function Turnos({ }: Props) {
                                             options={Array.from({ length: 12 }).map((_, i) => i + 1)}
                                             setSelected={value => updateData('ageMonth', { target: { value } })}
                                             style={{ width: '30%' }}
+                                            placeholder="MM"
                                         />
                                         <Dropdown
                                             label="Año"
@@ -285,6 +287,7 @@ export default function Turnos({ }: Props) {
                                             options={getYearArray()}
                                             setSelected={value => updateData('ageYear', { target: { value } })}
                                             style={{ width: '30%' }}
+                                            placeholder="AAAA"
                                         />
                                     </div>
                                 </div>

@@ -201,7 +201,7 @@ const Home = () => {
                 }}
               />
             </div>
-            <div className="home__col" style={{ width: '32%' }}>
+            <div className="home__col" style={{ width: isMobile ? '80%' : '32%' }}>
               <div className="home__side-image-container">
                 <img src="/assets/images/otoscopy.jpg" alt="Otoscopio" className="home__side-image" draggable={false} />
                 <div className="home__side-image-square" />
