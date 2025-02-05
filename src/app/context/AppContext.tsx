@@ -25,7 +25,7 @@ export const AppProvider = ({ children }: Props) => {
         if (window && localStorage) setWindowLoading(false)
         setIsMobile(isMobileDevice())
 
-        verifyUser()
+        // verifyUser()
 
         const checkWidth = () => setIsMobile(window.innerWidth <= 768)
 

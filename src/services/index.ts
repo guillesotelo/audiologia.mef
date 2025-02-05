@@ -18,7 +18,7 @@ const loginUser = async (data: userType) => {
 
 const verifyToken = async (token?: string) => {
     try {
-        const verify = await axios.post(`${BASE_URL}/api/user/verify`, {}, { withCredentials: true, params: { token } })
+        const verify = await axios.post(`${BASE_URL}/api/user/verify`, { token })
         return verify.data || false
     } catch (err) { return false }
 }

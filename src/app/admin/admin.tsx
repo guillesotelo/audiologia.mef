@@ -12,13 +12,14 @@ import moment from 'moment';
 import 'moment/locale/es'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import Modal from "src/components/Modal/Modal"
-import { getDate } from "src/helpers"
+import { getDate, getYearArray } from "src/helpers"
 import Dropdown from "src/components/Dropdown/Dropdown"
 import Calendar, { TileDisabledFunc } from "react-calendar"
 import Button from "src/components/Button/Button"
 import InputField from "src/components/InputField/InputField"
 import toast from "react-hot-toast"
 import { BounceLoader } from "react-spinners"
+import Switch from "src/components/Switch/Switch"
 
 type Props = {}
 
@@ -39,7 +40,7 @@ export default function Turnos({ }: Props) {
     const [calendarDate, setCalendarDate] = useState<any>(null)
     const [newBooking, setNewBooking] = useState<bookingType | null>(null)
     const [removeBooking, setRemoveBooking] = useState<string | null>(null)
-    const [view, setView] = useState<any>(Views.WEEK)
+    const [view, setView] = useState<any>(Views.MONTH)
     const [selectedStudy, setSelectedStudy] = useState<any>(voidStudy)
     const [openCalendar, setOpenCalendar] = useState(false)
     const [timeOptions, setTimeOptions] = useState<Date[]>([])
@@ -118,7 +119,7 @@ export default function Turnos({ }: Props) {
 
             setTimeOptions(freeSlots)
         }
-    }, [bookings, date, calendarDate, selected, newBooking, data])
+    }, [bookings, date, calendarDate, selected, newBooking])
 
     const saveBooking = async () => {
         try {
@@ -238,13 +239,8 @@ export default function Turnos({ }: Props) {
         return false
     }
 
-    const updateData = (key: string, e: any, max?: number) => {
+    const updateData = (key: string, e: any) => {
         let { value } = e.target
-        const isNumber = typeof value === 'number'
-        if (max && String(value).length > max) {
-            value = isNumber ? Number(String(value).slice(0, max)) : value.slice(0, max)
-        }
-
         setData(prev => ({ ...prev, [key]: value }))
     }
 
@@ -265,9 +261,10 @@ export default function Turnos({ }: Props) {
             && date && selectedStudy.label)
     }
 
-    const disableWeekends = (date: Date) => {
+    const disableWeekendsAndPastDays = (date: Date) => {
+        const isPastDay = new Date(date).getTime() - new Date().getTime() < 0
         const day = date.getDay() // 0 = Sunday, 6 = Saturday
-        return day !== 0 && day !== 6
+        return day !== 0 && day !== 6 && !isPastDay
     }
 
     const removeSelectedBooking = async () => {
@@ -290,6 +287,11 @@ export default function Turnos({ }: Props) {
         }
     }
 
+    const getModalTitle = () => {
+        const { firstName, lastName } = selected || newBooking || {}
+        return (selected ? selected.studyName : (newBooking?.studyName || 'Nuevo turno')) + (firstName ? ` - ${firstName} ${lastName}` : '')
+    }
+
     return (
         <>
             <Header />
@@ -307,7 +309,11 @@ export default function Turnos({ }: Props) {
                     <Modal
                         title='Estás segura que querés cancelar y eliminar este turno?'
                         onClose={() => setRemoveBooking(null)}>
-                        <p>{ }</p>
+                        <div style={{ textAlign: 'center', marginBottom: '3rem', border: '1px solid red', borderRadius: '.5rem' }}>
+                            <h4>{selected?.studyName}</h4>
+                            <p>{selected?.firstName} {selected?.lastName}</p>
+                            <p>{getDate(selected?.date || 0)}</p>
+                        </div>
                         <div className="booking__form-btns">
                             <Button
                                 label="Cancelar"
@@ -327,7 +333,7 @@ export default function Turnos({ }: Props) {
                     </Modal>
                     : selected || newBooking ?
                         <Modal
-                            title={selected ? selected.studyName : (newBooking?.studyName || 'Nuevo turno')}
+                            title={getModalTitle()}
                             onClose={emptyData}>
                             <div className="booking__form">
                                 <Dropdown
@@ -382,35 +388,29 @@ export default function Turnos({ }: Props) {
                                 <div className="booking__form-age-container">
                                     <p className="booking__form-age-title">Fecha de nacimiento</p>
                                     <div className="booking__form-age">
-                                        <InputField
-                                            name="ageDay"
+                                        <Dropdown
                                             label="Día"
-                                            updateData={updateData}
-                                            placeholder="DD"
-                                            type="number"
-                                            style={{ width: '26%' }}
-                                            maxLength={2}
                                             value={data.ageDay}
+                                            selected={data.ageDay}
+                                            options={Array.from({ length: 31 }).map((_, i) => i + 1)}
+                                            setSelected={value => updateData('ageDay', { target: { value } })}
+                                            style={{ width: '30%' }}
                                         />
-                                        <InputField
-                                            name="ageMonth"
+                                        <Dropdown
                                             label="Mes"
-                                            updateData={updateData}
-                                            placeholder="MM"
-                                            type="number"
-                                            style={{ width: '26%' }}
-                                            maxLength={2}
                                             value={data.ageMonth}
+                                            selected={data.ageMonth}
+                                            options={Array.from({ length: 12 }).map((_, i) => i + 1)}
+                                            setSelected={value => updateData('ageMonth', { target: { value } })}
+                                            style={{ width: '30%' }}
                                         />
-                                        <InputField
-                                            name="ageYear"
+                                        <Dropdown
                                             label="Año"
-                                            updateData={updateData}
-                                            placeholder="AAAA"
-                                            type="number"
-                                            style={{ width: '36%' }}
-                                            maxLength={4}
                                             value={data.ageYear}
+                                            selected={data.ageYear}
+                                            options={getYearArray()}
+                                            setSelected={value => updateData('ageYear', { target: { value } })}
+                                            style={{ width: '30%' }}
                                         />
                                     </div>
                                 </div>
@@ -428,6 +428,33 @@ export default function Turnos({ }: Props) {
                                     placeholder="34567891011"
                                     value={data.phone}
                                 />
+                                <InputField
+                                    name="notes"
+                                    label="Notas"
+                                    updateData={updateData}
+                                    type="textarea"
+                                    placeholder="Escribe notas sobre el estudio del paciente..."
+                                    value={data.notes}
+                                    rows={10}
+                                />
+                                <div className="booking__row">
+                                    <InputField
+                                        name="price"
+                                        label="Precio total"
+                                        updateData={updateData}
+                                        type="number"
+                                        placeholder="ARS$"
+                                        value={data.price}
+                                        style={{ width: '30%' }}
+                                    />
+                                    <Switch
+                                        label="Estudio abonado"
+                                        value={data.isPaid}
+                                        setValue={value => updateData('isPaid', { target: { value } })}
+                                        on="Si"
+                                        off="No"
+                                    />
+                                </div>
                                 <div className="booking__form-btns">
                                     <Button
                                         label={newBooking ? 'Cancelar' : "Descartar cambios"}
@@ -481,20 +508,11 @@ export default function Turnos({ }: Props) {
                     max={new Date(0, 0, 0, 21, 0, 0)}
                     messages={messages}
                     onView={(view) => setView(view)}
-                    onNavigate={(date) => setCalendarDate(new Date(date))}
-                    dayPropGetter={(date) => {
-                        const today = new Date()
-                        return disableWeekends(date) ? {} :
-                            (date.getDate() === today.getDate() &&
-                                date.getMonth() === today.getMonth() &&
-                                date.getFullYear() === today.getFullYear()) ?
-                                {
-                                    style: {
-                                        backgroundColor: "#f0f0f0",
-                                        color: "#000",
-                                        fontWeight: "bold",
-                                    }
-                                }
+                    onNavigate={(d) => setCalendarDate(new Date(d))}
+                    dayPropGetter={(d) => {
+                        return disableWeekendsAndPastDays(d) ? {} :
+                            (getDate(new Date(), false) === getDate(d, false)) ?
+                                { className: "rbc-day-bg-today" }
                                 :
                                 {
                                     className: "rbc-off-range-bg",

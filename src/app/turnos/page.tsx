@@ -12,7 +12,7 @@ import { TileDisabledFunc } from 'react-calendar/dist/cjs/shared/types'
 import QRCode from "react-qr-code"
 import { createOrUpdateBooking, getBookings } from "src/services"
 import { bookingType, dataObj } from "../types"
-import { getDate } from "src/helpers"
+import { getDate, getYearArray } from "src/helpers"
 import { studies } from "src/constants"
 
 type Props = {}
@@ -188,12 +188,6 @@ export default function Turnos({ }: Props) {
         const a = document.createElement('a')
         a.href = window.location.href
         a.click()
-    }
-
-    const getYearArray = () => {
-        return Array.from({ length: 130 }).map((_, i) => {
-            return new Date().getFullYear() - i
-        })
     }
 
     return (
