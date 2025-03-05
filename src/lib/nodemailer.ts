@@ -2,7 +2,7 @@ import { transporterPromise } from "./mail";
 import { dataObj } from "src/app/types";
 import { contactEmail, newBookingClient, newBookingAdmin, cancelBooking } from "../constants/emailTemplates";
 
-const sendEmail = async (to: string, subject: string, html: string) => {
+const sendEmail = async (to: string | string[], subject: string, html: string) => {
     try {
         const transporter = await transporterPromise
         await transporter.sendMail({
